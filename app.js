@@ -1,8 +1,6 @@
-// Google Form POST endpoint (NOT the viewform link)
 const GOOGLE_FORM_ACTION =
   'https://docs.google.com/forms/d/e/1FAIpQLSeoCw-wO6ljQ6_gEzKbXQBNgfoncdDHjeI_qRmdju_y1RK3xg/formResponse';
 
-// Google Form entry mapping
 const ENTRY_MAP = {
   name: 'entry.84179135',
   designation: 'entry.2068159052',
@@ -18,15 +16,16 @@ const ENTRY_MAP = {
 
 const form = document.getElementById('feedbackForm');
 const syncBtn = document.getElementById('syncBtn');
+const offlineCountEl = document.getElementById('offlineCount');
+const popup = document.getElementById('popup');
 const q_name = document.getElementById('q_name');
 const q_remarks = document.getElementById('q_remarks');
 
-// -------------------------------
-// 📥 Save button
-// -------------------------------
+updateOfflineCounter();
+
+// Save offline
 form.addEventListener('submit', e => {
   e.preventDefault();
-
   const data = {
     name: q_name.value.trim(),
     designation: document.querySelector('input[name="designation"]:checked')?.value || '',
@@ -40,70 +39,56 @@ form.addEventListener('submit', e => {
     remarks: q_remarks.value.trim()
   };
 
-  console.log('🟡 Collected form data:', data);
-
   if (!data.name || !data.designation || !data.batch) {
-    alert('⚠️ Please fill all required fields before saving.');
+    showPopup('⚠️ Please fill all required fields', 'error');
     return;
   }
 
   saveOffline(data);
-  alert('✅ Saved offline successfully!');
+  showPopup('💾 Saved offline!');
   form.reset();
 });
 
-// -------------------------------
-// 🔁 Sync Button
-// -------------------------------
+// Sync now
 syncBtn.addEventListener('click', syncData);
 
-// Auto-sync when network returns
-window.addEventListener('online', () => {
-  console.log('🌐 Network restored. Attempting auto-sync...');
-  syncData();
-});
+// Auto sync when online
+window.addEventListener('online', () => syncData());
 
-// -------------------------------
-// 💾 Local storage
-// -------------------------------
 function saveOffline(entry) {
   const existing = JSON.parse(localStorage.getItem('responses') || '[]');
   existing.push(entry);
   localStorage.setItem('responses', JSON.stringify(existing));
-  console.log(`💾 Offline responses count: ${existing.length}`);
+  updateOfflineCounter();
 }
 
-// -------------------------------
-// ☁️ Sync to Google Form
-// -------------------------------
+function getOfflineCount() {
+  return JSON.parse(localStorage.getItem('responses') || '[]').length;
+}
+
+function updateOfflineCounter() {
+  offlineCountEl.textContent = `📦 Offline responses: ${getOfflineCount()}`;
+}
+
 async function syncData() {
   const all = JSON.parse(localStorage.getItem('responses') || '[]');
   if (!all.length) {
-    alert('No responses to sync.');
+    showPopup('No responses to sync');
     return;
   }
 
-  console.log(`🚀 Starting sync for ${all.length} responses...`);
-
   let count = 0;
   for (const entry of all) {
-    try {
-      console.log('➡️ Syncing entry:', entry);
-      await postToGoogleForm(entry);
-      count++;
-    } catch (err) {
-      console.error('❌ Failed to sync one entry:', err);
-    }
+    await postToGoogleForm(entry);
+    count++;
   }
 
   localStorage.removeItem('responses');
-  alert(`✅ Synced ${count} responses successfully.`);
-  console.log(`✅ Synced ${count} responses successfully and cleared localStorage.`);
+  updateOfflineCounter();
+  showPopup(`✅ Synced ${count} responses successfully!`);
 }
 
-// -------------------------------
-// 📤 Hidden form submission
-// -------------------------------
+// Submit hidden form
 function postToGoogleForm(data) {
   return new Promise(resolve => {
     const formEl = document.createElement('form');
@@ -111,13 +96,6 @@ function postToGoogleForm(data) {
     formEl.method = 'POST';
     formEl.target = 'hidden_iframe';
     formEl.style.display = 'none';
-
-    formEl.innerHTML += `
-      <input type="hidden" name="fvv" value="1">
-      <input type="hidden" name="draftResponse" value="[]">
-      <input type="hidden" name="pageHistory" value="0">
-      <input type="hidden" name="fbzx" value="1234567890">
-    `;
 
     for (const [key, entry] of Object.entries(ENTRY_MAP)) {
       const input = document.createElement('input');
@@ -127,42 +105,27 @@ function postToGoogleForm(data) {
       formEl.appendChild(input);
     }
 
-    let iframe = document.querySelector('iframe[name="hidden_iframe"]');
-    if (!iframe) {
-      iframe = document.createElement('iframe');
-      iframe.name = 'hidden_iframe';
-      iframe.style.display = 'none';
-      document.body.appendChild(iframe);
-    }
-
-    const timeout = setTimeout(() => {
-      console.warn('⚠️ Timeout during sync for entry:', data);
-      iframe.removeEventListener('load', loadHandler);
-      resolve();
-    }, 8000);
-
-    function loadHandler() {
-      clearTimeout(timeout);
-      iframe.removeEventListener('load', loadHandler);
-      console.log('✅ Form entry synced successfully.');
-      resolve();
-    }
-
-    iframe.addEventListener('load', loadHandler);
     document.body.appendChild(formEl);
     formEl.submit();
-    document.body.removeChild(formEl);
+    setTimeout(() => {
+      document.body.removeChild(formEl);
+      resolve();
+    }, 800);
   });
 }
 
-// -------------------------------
-// ⚙️ Service Worker
-// -------------------------------
+// Popup animation
+function showPopup(msg, type = 'success') {
+  popup.textContent = msg;
+  popup.style.background = type === 'error' ? '#d9534f' : '#00a86b';
+  popup.classList.add('show');
+  setTimeout(() => popup.classList.remove('show'), 2500);
+}
+
+// Service Worker
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     const swUrl = `${window.location.pathname.replace(/\/[^/]*$/, '')}/service-worker.js`;
-    navigator.serviceWorker.register(swUrl)
-      .then(reg => console.log('🧱 Service Worker registered:', reg))
-      .catch(err => console.error('❌ Service Worker registration failed:', err));
+    navigator.serviceWorker.register(swUrl);
   });
 }
