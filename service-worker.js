@@ -1,25 +1,15 @@
-const CACHE = 'offline-cache-v1';
-const FILES = [
-  './',
-  './index.html',
-  './app.js',
-  './style.css',
-  './service-worker.js'
-];
+const CACHE = 'offline-cache-v2';
+const FILES = ['./', './index.html', './app.js', './style.css'];
 
-self.addEventListener('install', event => {
-  event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(FILES)));
+self.addEventListener('install', e => {
+  e.waitUntil(caches.open(CACHE).then(c => c.addAll(FILES)));
   self.skipWaiting();
 });
 
-self.addEventListener('activate', event => {
-  event.waitUntil(self.clients.claim());
-});
+self.addEventListener('activate', e => e.waitUntil(self.clients.claim()));
 
-self.addEventListener('fetch', event => {
-  if (event.request.method === 'GET') {
-    event.respondWith(
-      caches.match(event.request).then(response => response || fetch(event.request))
-    );
+self.addEventListener('fetch', e => {
+  if (e.request.method === 'GET') {
+    e.respondWith(caches.match(e.request).then(r => r || fetch(e.request)));
   }
 });
