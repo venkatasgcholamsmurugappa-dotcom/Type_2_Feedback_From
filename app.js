@@ -24,18 +24,17 @@ form.addEventListener('submit', e => {
     name: q_name.value.trim(),
     designation: q_designation.value.trim(),
     batch: document.querySelector('input[name="batch"]:checked')?.value || '',
-    content: document.querySelector('input[name="content"]:checked')?.value || '',
-    coverage: document.querySelector('input[name="coverage"]:checked')?.value || '',
-    usefulness: document.querySelector('input[name="usefulness"]:checked')?.value || '',
-    application: document.querySelector('input[name="application"]:checked')?.value || '',
-    presentation: document.querySelector('input[name="presentation"]:checked')?.value || '',
-    overall: document.querySelector('input[name="overall"]:checked')?.value || '',
+    content: q_content.value,
+    coverage: q_coverage.value,
+    usefulness: q_usefulness.value,
+    application: q_application.value,
+    presentation: q_presentation.value,
+    overall: q_overall.value,
     remarks: q_remarks.value.trim()
   };
 
-  // Always save offline
   saveOffline(data);
-  alert('Saved offline successfully! You can sync when network is available.');
+  alert('Saved offline successfully!');
   form.reset();
 });
 
@@ -56,41 +55,28 @@ async function syncData() {
 
   let count = 0;
   for (const entry of all) {
-    try {
-      await postToGoogleForm(entry);
-      count++;
-    } catch (err) {
-      console.warn('Sync failed for entry:', entry, err);
-    }
+    await postToGoogleForm(entry);
+    count++;
   }
 
   localStorage.removeItem('responses');
   alert(`Synced ${count} responses successfully.`);
 }
 
-async function postToGoogleForm(data) {
-  // If offline, skip sync attempt
-  if (!navigator.onLine) {
-    throw new Error('Offline - skipping sync.');
-  }
-
-  // Fetch live form to get fbzx token
-  const formPage = await fetch(GOOGLE_FORM_ACTION.replace('/formResponse', '/viewform')).then(r => r.text());
-  const fbzxMatch = formPage.match(/name="fbzx" value="(.*?)"/);
-  const fbzx = fbzxMatch ? fbzxMatch[1] : '1234567890';
-
-  return new Promise((resolve, reject) => {
+function postToGoogleForm(data) {
+  return new Promise(resolve => {
     const formEl = document.createElement('form');
     formEl.action = GOOGLE_FORM_ACTION;
     formEl.method = 'POST';
     formEl.target = 'hidden_iframe';
     formEl.style.display = 'none';
 
+    // Required hidden fields
     formEl.innerHTML += `
       <input type="hidden" name="fvv" value="1">
       <input type="hidden" name="draftResponse" value="[]">
       <input type="hidden" name="pageHistory" value="0">
-      <input type="hidden" name="fbzx" value="${fbzx}">
+      <input type="hidden" name="fbzx" value="1234567890">
     `;
 
     for (const [key, entry] of Object.entries(ENTRY_MAP)) {
@@ -102,7 +88,7 @@ async function postToGoogleForm(data) {
     }
 
     const iframe = document.querySelector('iframe[name="hidden_iframe"]');
-    const timeout = setTimeout(() => reject('timeout'), 15000);
+    const timeout = setTimeout(resolve, 8000);
 
     iframe.addEventListener('load', function handler() {
       clearTimeout(timeout);
