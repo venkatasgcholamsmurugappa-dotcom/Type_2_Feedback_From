@@ -1,49 +1,75 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Offline Collector</title>
+  <title>Offline Google Form Collector</title>
   <style>
-    body{font-family:system-ui,Segoe UI,Roboto,Arial;margin:20px;max-width:700px}
-    label{display:block;margin-top:12px}
-    input,textarea,select{width:100%;padding:8px;margin-top:6px}
-    .btn{margin-top:12px;padding:10px 16px}
-    #status{margin-top:8px;color:green}
-    #queue{margin-top:12px;color:#333}
+    body { font-family: system-ui, sans-serif; margin: 20px; max-width: 700px; }
+    label { display: block; margin-top: 12px; }
+    input, textarea { width: 100%; padding: 8px; margin-top: 6px; }
+    button { margin-top: 14px; padding: 10px 16px; }
+    #status { margin-top: 14px; font-weight: bold; }
   </style>
 </head>
 <body>
-  <h1>Field Form (offline)</h1>
-  <!-- Replace these fields to match your Google Form questions and entry ids -->
+  <h1>Feedback Collection (Offline Ready)</h1>
   <form id="localForm">
     <label>Name
       <input type="text" id="q_name" required />
     </label>
 
-    <label>Phone
-      <input type="tel" id="q_phone" />
+    <label>Designation
+      <input type="text" id="q_designation" required />
     </label>
 
-    <label>Notes
-      <textarea id="q_notes"></textarea>
+    <label>Batch
+      <input type="text" id="q_batch" />
     </label>
 
-    <button type="submit" class="btn">Save (will send when online)</button>
+    <label>Topic 1
+      <input type="text" id="q_topic1" placeholder="Excellent / Good / Average" />
+    </label>
+
+    <label>Topic 2
+      <input type="text" id="q_topic2" placeholder="Excellent / Good / Average" />
+    </label>
+
+    <label>Topic 3
+      <input type="text" id="q_topic3" placeholder="Excellent / Good / Average" />
+    </label>
+
+    <label>Topic 4
+      <input type="text" id="q_topic4" placeholder="Excellent / Good / Average" />
+    </label>
+
+    <label>Topic 5
+      <input type="text" id="q_topic5" placeholder="Excellent / Good / Average" />
+    </label>
+
+    <label>Comments
+      <textarea id="q_comments" placeholder="Any additional feedback"></textarea>
+    </label>
+
+    <button type="submit">Save (works offline)</button>
   </form>
 
-  <button id="syncBtn" class="btn">Sync Now</button>
-  <div id="status">Status: <span id="net">--</span></div>
-  <div id="queue">Queued items: <span id="queueCount">0</span></div>
+  <button id="syncBtn">Sync Now</button>
 
-  <!-- Invisible iframe for form posts so the page doesn't navigate -->
+  <div id="status">
+    Network: <span id="net">--</span> |
+    Pending Responses: <span id="queueCount">0</span>
+  </div>
+
+  <!-- Invisible iframe for background form submits -->
   <iframe name="hidden_iframe" style="display:none;"></iframe>
 
   <script src="app.js"></script>
   <script>
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('./service-worker.js').catch(console.error);
+      navigator.serviceWorker.register('./service-worker.js');
     }
   </script>
 </body>
 </html>
+
