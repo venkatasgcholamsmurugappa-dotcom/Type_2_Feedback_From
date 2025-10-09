@@ -1,20 +1,20 @@
-const CACHE = 'offline-cache-v1';
-const FILES = [
-  '/',
-  '/index.html',
-  '/app.js',
-  '/service-worker.js'
+const CACHE_NAME = 'offline-gso-form-v1';
+const ASSETS = [
+  './',
+  './index.html',
+  './style.css',
+  './app.js',
+  './manifest.json'
 ];
 
 self.addEventListener('install', e => {
-  e.waitUntil(caches.open(CACHE).then(c => c.addAll(FILES)));
-  self.skipWaiting();
+  e.waitUntil(
+    caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS))
+  );
 });
 
-self.addEventListener('activate', e => self.clients.claim());
-
 self.addEventListener('fetch', e => {
-  if (e.request.method === 'GET') {
-    e.respondWith(caches.match(e.request).then(r => r || fetch(e.request)));
-  }
+  e.respondWith(
+    caches.match(e.request).then(response => response || fetch(e.request))
+  );
 });
