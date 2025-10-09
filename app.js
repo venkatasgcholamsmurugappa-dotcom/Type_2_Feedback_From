@@ -10,10 +10,10 @@ const ENTRY_MAP = {
   content: 'entry.1696703865',
   coverage: 'entry.668356233',
   usefulness: 'entry.1158237827',
-  application: 'entry.131632769',
-  presentation: 'entry.1514587503',
-  overall: 'entry.501229103',
-  remarks: 'entry.1514587504' // replace with actual if different
+  application: 'entry.1528756438',
+  presentation: 'entry.131632769',
+  overall: 'entry.1514587503',
+  remarks: 'entry.501229103' // replace with actual if different
 };
 // ===================
 
