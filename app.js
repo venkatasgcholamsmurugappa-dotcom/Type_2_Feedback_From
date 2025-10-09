@@ -17,6 +17,16 @@ const ENTRY_MAP = {
 const form = document.getElementById('feedbackForm');
 const syncBtn = document.getElementById('syncBtn');
 
+const q_name = document.getElementById('q_name');
+const q_designation = document.getElementById('q_designation');
+const q_content = document.getElementById('q_content');
+const q_coverage = document.getElementById('q_coverage');
+const q_usefulness = document.getElementById('q_usefulness');
+const q_application = document.getElementById('q_application');
+const q_presentation = document.getElementById('q_presentation');
+const q_overall = document.getElementById('q_overall');
+const q_remarks = document.getElementById('q_remarks');
+
 form.addEventListener('submit', e => {
   e.preventDefault();
 
@@ -40,6 +50,10 @@ form.addEventListener('submit', e => {
 
 syncBtn.addEventListener('click', syncData);
 
+window.addEventListener('online', () => {
+  syncData();
+});
+
 function saveOffline(entry) {
   const existing = JSON.parse(localStorage.getItem('responses') || '[]');
   existing.push(entry);
@@ -55,8 +69,13 @@ async function syncData() {
 
   let count = 0;
   for (const entry of all) {
-    await postToGoogleForm(entry);
-    count++;
+    try {
+      await postToGoogleForm(entry);
+      count++;
+    } catch (err) {
+      console.error('Failed to sync one response:', err);
+      // Stop or continue? Here continue syncing others
+    }
   }
 
   localStorage.removeItem('responses');
@@ -71,7 +90,7 @@ function postToGoogleForm(data) {
     formEl.target = 'hidden_iframe';
     formEl.style.display = 'none';
 
-    // Required hidden fields
+    // Required hidden fields for Google Forms
     formEl.innerHTML += `
       <input type="hidden" name="fvv" value="1">
       <input type="hidden" name="draftResponse" value="[]">
@@ -87,17 +106,38 @@ function postToGoogleForm(data) {
       formEl.appendChild(input);
     }
 
-    const iframe = document.querySelector('iframe[name="hidden_iframe"]');
-    const timeout = setTimeout(resolve, 8000);
+    let iframe = document.querySelector('iframe[name="hidden_iframe"]');
+    if (!iframe) {
+      iframe = document.createElement('iframe');
+      iframe.name = 'hidden_iframe';
+      iframe.style.display = 'none';
+      document.body.appendChild(iframe);
+    }
 
-    iframe.addEventListener('load', function handler() {
-      clearTimeout(timeout);
-      iframe.removeEventListener('load', handler);
+    const timeout = setTimeout(() => {
+      iframe.removeEventListener('load', loadHandler);
       resolve();
-    });
+    }, 8000);
+
+    function loadHandler() {
+      clearTimeout(timeout);
+      iframe.removeEventListener('load', loadHandler);
+      resolve();
+    }
+
+    iframe.addEventListener('load', loadHandler);
 
     document.body.appendChild(formEl);
     formEl.submit();
     document.body.removeChild(formEl);
+  });
+}
+
+// Register service worker
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js')
+      .then(reg => console.log('Service Worker registered', reg))
+      .catch(err => console.error('Service Worker registration failed:', err));
   });
 }
