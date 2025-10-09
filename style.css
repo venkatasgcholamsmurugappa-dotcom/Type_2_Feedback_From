@@ -1,1 +1,18 @@
+body {
+  font-family: Arial, sans-serif;
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 0 10px;
+}
+
+form label, fieldset {
+  display: block;
+  margin-bottom: 15px;
+}
+
+button {
+  padding: 8px 16px;
+  margin-top: 10px;
+  cursor: pointer;
+}
 
