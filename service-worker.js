@@ -8,9 +8,7 @@ const FILES = [
 ];
 
 self.addEventListener('install', event => {
-  event.waitUntil(
-    caches.open(CACHE).then(cache => cache.addAll(FILES))
-  );
+  event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(FILES)));
   self.skipWaiting();
 });
 
@@ -21,7 +19,7 @@ self.addEventListener('activate', event => {
 self.addEventListener('fetch', event => {
   if (event.request.method === 'GET') {
     event.respondWith(
-      caches.match(event.request).then(cachedResponse => cachedResponse || fetch(event.request))
+      caches.match(event.request).then(response => response || fetch(event.request))
     );
   }
 });
