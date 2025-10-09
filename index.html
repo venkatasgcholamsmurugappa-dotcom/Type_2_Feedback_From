@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Offline Collector</title>
+  <style>
+    body{font-family:system-ui,Segoe UI,Roboto,Arial;margin:20px;max-width:700px}
+    label{display:block;margin-top:12px}
+    input,textarea,select{width:100%;padding:8px;margin-top:6px}
+    .btn{margin-top:12px;padding:10px 16px}
+    #status{margin-top:8px;color:green}
+    #queue{margin-top:12px;color:#333}
+  </style>
+</head>
+<body>
+  <h1>Field Form (offline)</h1>
+  <!-- Replace these fields to match your Google Form questions and entry ids -->
+  <form id="localForm">
+    <label>Name
+      <input type="text" id="q_name" required />
+    </label>
+
+    <label>Phone
+      <input type="tel" id="q_phone" />
+    </label>
+
+    <label>Notes
+      <textarea id="q_notes"></textarea>
+    </label>
+
+    <button type="submit" class="btn">Save (will send when online)</button>
+  </form>
+
+  <button id="syncBtn" class="btn">Sync Now</button>
+  <div id="status">Status: <span id="net">--</span></div>
+  <div id="queue">Queued items: <span id="queueCount">0</span></div>
+
+  <!-- Invisible iframe for form posts so the page doesn't navigate -->
+  <iframe name="hidden_iframe" style="display:none;"></iframe>
+
+  <script src="app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./service-worker.js').catch(console.error);
+    }
+  </script>
+</body>
+</html>
