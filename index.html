@@ -4,13 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Competency Building Workshop for Senior Officers – GSO</title>
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#0047AB" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <h2>Competency Building Workshop for Senior Officers – GSO</h2>
 
   <form id="feedbackForm">
-
     <label>Name of Participant:
       <input type="text" id="q_name" required />
     </label>
@@ -19,14 +20,12 @@
       <input type="text" id="q_designation" required />
     </label>
 
-    <!-- 3. Attending Batch -->
     <fieldset>
       <legend>3. Attending Batch</legend>
       <label><input type="radio" name="batch" value="Batch 1" required /> Batch 1</label>
       <label><input type="radio" name="batch" value="Batch 2" /> Batch 2</label>
     </fieldset>
 
-    <!-- 4. Content -->
     <fieldset>
       <legend>4. Content</legend>
       <label><input type="radio" name="content" value="Excellent" required /> Excellent</label>
@@ -35,7 +34,6 @@
       <label><input type="radio" name="content" value="Poor" /> Poor</label>
     </fieldset>
 
-    <!-- 5. Coverage -->
     <fieldset>
       <legend>5. Coverage</legend>
       <label><input type="radio" name="coverage" value="Excellent" required /> Excellent</label>
@@ -44,7 +42,6 @@
       <label><input type="radio" name="coverage" value="Poor" /> Poor</label>
     </fieldset>
 
-    <!-- 6. Usefulness -->
     <fieldset>
       <legend>6. Usefulness</legend>
       <label><input type="radio" name="usefulness" value="Excellent" required /> Excellent</label>
@@ -53,7 +50,6 @@
       <label><input type="radio" name="usefulness" value="Poor" /> Poor</label>
     </fieldset>
 
-    <!-- 7. Application -->
     <fieldset>
       <legend>7. Application</legend>
       <label><input type="radio" name="application" value="Excellent" required /> Excellent</label>
@@ -62,7 +58,6 @@
       <label><input type="radio" name="application" value="Poor" /> Poor</label>
     </fieldset>
 
-    <!-- 8. Presentations of the Faculty -->
     <fieldset>
       <legend>8. Presentations of the Faculty</legend>
       <label><input type="radio" name="presentation" value="Excellent" required /> Excellent</label>
@@ -71,7 +66,6 @@
       <label><input type="radio" name="presentation" value="Poor" /> Poor</label>
     </fieldset>
 
-    <!-- 9. Overall Feedback -->
     <fieldset>
       <legend>9. Overall Feedback</legend>
       <label><input type="radio" name="overall" value="Excellent" required /> Excellent</label>
@@ -80,7 +74,6 @@
       <label><input type="radio" name="overall" value="Poor" /> Poor</label>
     </fieldset>
 
-    <!-- 10. Remarks -->
     <label>10. Remarks and Suggestions:
       <textarea id="q_remarks" rows="3"></textarea>
     </label>
@@ -92,5 +85,12 @@
   <iframe name="hidden_iframe" style="display:none;"></iframe>
 
   <script src="app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js')
+        .then(() => console.log('✅ Service Worker registered'))
+        .catch(err => console.error('SW registration failed:', err));
+    }
+  </script>
 </body>
 </html>
