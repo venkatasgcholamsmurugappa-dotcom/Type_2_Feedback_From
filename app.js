@@ -63,8 +63,13 @@ async function syncData() {
   alert(`Synced ${count} responses successfully.`);
 }
 
-function postToGoogleForm(data) {
-  return new Promise(resolve => {
+async function postToGoogleForm(data) {
+  // Step 1: Fetch form HTML to get the current fbzx token
+  const formPage = await fetch(GOOGLE_FORM_ACTION.replace('/formResponse', '/viewform')).then(r => r.text());
+  const fbzxMatch = formPage.match(/name="fbzx" value="(.*?)"/);
+  const fbzx = fbzxMatch ? fbzxMatch[1] : '1234567890';
+
+  return new Promise((resolve) => {
     const formEl = document.createElement('form');
     formEl.action = GOOGLE_FORM_ACTION;
     formEl.method = 'POST';
@@ -76,9 +81,10 @@ function postToGoogleForm(data) {
       <input type="hidden" name="fvv" value="1">
       <input type="hidden" name="draftResponse" value="[]">
       <input type="hidden" name="pageHistory" value="0">
-      <input type="hidden" name="fbzx" value="1234567890">
+      <input type="hidden" name="fbzx" value="${fbzx}">
     `;
 
+    // Actual user responses
     for (const [key, entry] of Object.entries(ENTRY_MAP)) {
       const input = document.createElement('input');
       input.type = 'hidden';
@@ -86,6 +92,21 @@ function postToGoogleForm(data) {
       input.value = data[key] || '';
       formEl.appendChild(input);
     }
+
+    const iframe = document.querySelector('iframe[name="hidden_iframe"]');
+    const timeout = setTimeout(resolve, 10000);
+
+    iframe.addEventListener('load', function handler() {
+      clearTimeout(timeout);
+      iframe.removeEventListener('load', handler);
+      resolve();
+    });
+
+    document.body.appendChild(formEl);
+    formEl.submit();
+    document.body.removeChild(formEl);
+  });
+}
 
     const iframe = document.querySelector('iframe[name="hidden_iframe"]');
     const timeout = setTimeout(resolve, 8000);
