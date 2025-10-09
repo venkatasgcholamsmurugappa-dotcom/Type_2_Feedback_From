@@ -1,31 +1,32 @@
 body {
   font-family: Arial, sans-serif;
+  padding: 16px;
   max-width: 600px;
-  margin: 0 auto;
-  padding: 1rem;
+  margin: auto;
+  background: #f9f9f9;
 }
 
 h2 {
+  color: #0047AB;
   text-align: center;
-  color: #2b4a91;
 }
 
-form label,
-fieldset {
+label, fieldset {
   display: block;
-  margin-bottom: 1rem;
+  margin-bottom: 12px;
 }
 
 button {
-  background: #2b4a91;
+  background-color: #0047AB;
   color: white;
   border: none;
-  padding: 0.6rem 1.2rem;
-  border-radius: 4px;
+  padding: 10px 15px;
+  font-size: 16px;
   cursor: pointer;
-  margin-right: 0.5rem;
+  border-radius: 5px;
+  margin-top: 8px;
 }
 
 button:hover {
-  background: #1e3470;
+  background-color: #003a8c;
 }
