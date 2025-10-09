@@ -1,0 +1,15 @@
+{
+  "name": "Offline Google Form Collector",
+  "short_name": "GSO Form",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0047AB",
+  "icons": [
+    {
+      "src": "https://upload.wikimedia.org/wikipedia/commons/5/5f/Google_Forms_2020_Logo.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    }
+  ]
+}
