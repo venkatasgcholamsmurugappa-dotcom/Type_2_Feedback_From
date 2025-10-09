@@ -1,54 +1,111 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Offline Google Form Collector</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Competency Building Workshop – Offline Feedback</title>
   <style>
     body { font-family: system-ui, sans-serif; margin: 20px; max-width: 700px; }
-    label { display: block; margin-top: 12px; }
-    input, textarea { width: 100%; padding: 8px; margin-top: 6px; }
-    button { margin-top: 14px; padding: 10px 16px; }
-    #status { margin-top: 14px; font-weight: bold; }
+    h1 { text-align: center; }
+    label { display: block; margin-top: 12px; font-weight: bold; }
+    input, select, textarea { width: 100%; padding: 8px; margin-top: 4px; }
+    button { margin-top: 16px; padding: 10px 16px; }
+    #status { margin-top: 16px; font-weight: bold; }
   </style>
 </head>
 <body>
-  <h1>Feedback Collection (Offline Ready)</h1>
+  <h1>Competency Building Workshop for Senior Officers – GSO</h1>
+
   <form id="localForm">
-    <label>Name
-      <input type="text" id="q_name" required />
+
+    <label>1. Name of Participant
+      <input type="text" id="q_name" required>
     </label>
 
-    <label>Designation
-      <input type="text" id="q_designation" required />
+    <label>2. Designation
+      <input type="text" id="q_designation" required>
     </label>
 
-    <label>Batch
-      <input type="text" id="q_batch" />
+    <label>3. Attending Batch
+      <select id="q_batch" required>
+        <option value="">--Select--</option>
+        <option value="Batch 1">Batch 1</option>
+        <option value="Batch 2">Batch 2</option>
+      </select>
     </label>
 
-    <label>Topic 1
-      <input type="text" id="q_topic1" placeholder="Excellent / Good / Average" />
+    <label>4. Content
+      <select id="q_content" required>
+        <option value="">--Select--</option>
+        <option>Excellent</option>
+        <option>Good</option>
+        <option>Average</option>
+        <option>Poor</option>
+      </select>
     </label>
 
-    <label>Topic 2
-      <input type="text" id="q_topic2" placeholder="Excellent / Good / Average" />
+    <label>5. Coverage
+      <select id="q_coverage" required>
+        <option value="">--Select--</option>
+        <option>Excellent</option>
+        <option>Good</option>
+        <option>Average</option>
+        <option>Poor</option>
+      </select>
     </label>
 
-    <label>Topic 3
-      <input type="text" id="q_topic3" placeholder="Excellent / Good / Average" />
+    <label>6. Usefulness
+      <select id="q_usefulness" required>
+        <option value="">--Select--</option>
+        <option>Excellent</option>
+        <option>Good</option>
+        <option>Average</option>
+        <option>Poor</option>
+      </select>
     </label>
 
-    <label>Topic 4
-      <input type="text" id="q_topic4" placeholder="Excellent / Good / Average" />
+    <label>7. Application
+      <select id="q_application1" required>
+        <option value="">--Select--</option>
+        <option>Excellent</option>
+        <option>Good</option>
+        <option>Average</option>
+        <option>Poor</option>
+      </select>
     </label>
 
-    <label>Topic 5
-      <input type="text" id="q_topic5" placeholder="Excellent / Good / Average" />
+    <label>8. Application
+      <select id="q_application2" required>
+        <option value="">--Select--</option>
+        <option>Excellent</option>
+        <option>Good</option>
+        <option>Average</option>
+        <option>Poor</option>
+      </select>
     </label>
 
-    <label>Comments
-      <textarea id="q_comments" placeholder="Any additional feedback"></textarea>
+    <label>9. Presentations of the Faculty
+      <select id="q_presentation" required>
+        <option value="">--Select--</option>
+        <option>Excellent</option>
+        <option>Good</option>
+        <option>Average</option>
+        <option>Poor</option>
+      </select>
+    </label>
+
+    <label>10. Overall Feedback
+      <select id="q_overall" required>
+        <option value="">--Select--</option>
+        <option>Excellent</option>
+        <option>Good</option>
+        <option>Average</option>
+        <option>Poor</option>
+      </select>
+    </label>
+
+    <label>11. Remarks and Suggestions
+      <textarea id="q_remarks" rows="4"></textarea>
     </label>
 
     <button type="submit">Save (works offline)</button>
@@ -61,7 +118,6 @@
     Pending Responses: <span id="queueCount">0</span>
   </div>
 
-  <!-- Invisible iframe for background form submits -->
   <iframe name="hidden_iframe" style="display:none;"></iframe>
 
   <script src="app.js"></script>
@@ -72,4 +128,5 @@
   </script>
 </body>
 </html>
+
 
