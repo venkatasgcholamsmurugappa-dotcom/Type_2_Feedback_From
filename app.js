@@ -21,17 +21,17 @@ form.addEventListener('submit', e => {
   e.preventDefault();
 
   const data = {
-    name: q_name.value.trim(),
-    designation: q_designation.value.trim(),
-    batch: document.querySelector('input[name="batch"]:checked')?.value || '',
-    content: q_content.value,
-    coverage: q_coverage.value,
-    usefulness: q_usefulness.value,
-    application: q_application.value,
-    presentation: q_presentation.value,
-    overall: q_overall.value,
-    remarks: q_remarks.value.trim()
-  };
+  name: q_name.value.trim(),
+  designation: q_designation.value.trim(),
+  batch: document.querySelector('input[name="batch"]:checked')?.value || '',
+  content: document.querySelector('input[name="content"]:checked')?.value || '',
+  coverage: document.querySelector('input[name="coverage"]:checked')?.value || '',
+  usefulness: document.querySelector('input[name="usefulness"]:checked')?.value || '',
+  application: document.querySelector('input[name="application"]:checked')?.value || '',
+  presentation: document.querySelector('input[name="presentation"]:checked')?.value || '',
+  overall: document.querySelector('input[name="overall"]:checked')?.value || '',
+  remarks: q_remarks.value.trim()
+};
 
   saveOffline(data);
   alert('Saved offline successfully!');
