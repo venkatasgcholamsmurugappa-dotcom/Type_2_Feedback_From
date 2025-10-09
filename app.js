@@ -1,8 +1,6 @@
-// ===== CONFIG =====
 const GOOGLE_FORM_ACTION =
   'https://docs.google.com/forms/d/e/1FAIpQLSd-EKZOSVgIszymbyecICTg0vckoHAKbbk230SxvNLFQeUiXA/formResponse';
 
-// Replace these IDs with your actual entry IDs from “Get prefilled link”
 const ENTRY_MAP = {
   name: 'entry.84179135',
   designation: 'entry.649353373',
@@ -13,99 +11,57 @@ const ENTRY_MAP = {
   application: 'entry.1528756438',
   presentation: 'entry.131632769',
   overall: 'entry.1514587503',
-  remarks: 'entry.501229103' // replace with actual if different
+  remarks: 'entry.501229103'
 };
-// ===================
 
-const DB_NAME = 'offline-form-db';
-const STORE = 'queue';
-let dbPromise;
-
-function openDb() {
-  if (dbPromise) return dbPromise;
-  dbPromise = new Promise((res, rej) => {
-    const req = indexedDB.open(DB_NAME, 1);
-    req.onupgradeneeded = e =>
-      e.target.result.createObjectStore(STORE, { keyPath: 'id', autoIncrement: true });
-    req.onsuccess = e => res(e.target.result);
-    req.onerror = e => rej(e.target.error);
-  });
-  return dbPromise;
-}
-
-async function addToQueue(data) {
-  const db = await openDb();
-  return new Promise((res, rej) => {
-    const tx = db.transaction(STORE, 'readwrite');
-    tx.objectStore(STORE).add({ data, created: Date.now() });
-    tx.oncomplete = res;
-    tx.onerror = e => rej(e.target.error);
-  });
-}
-
-async function getQueue() {
-  const db = await openDb();
-  return new Promise((res, rej) => {
-    const tx = db.transaction(STORE, 'readonly');
-    const req = tx.objectStore(STORE).getAll();
-    req.onsuccess = e => res(e.target.result);
-    req.onerror = e => rej(e.target.error);
-  });
-}
-
-async function removeItem(id) {
-  const db = await openDb();
-  return new Promise((res, rej) => {
-    const tx = db.transaction(STORE, 'readwrite');
-    tx.objectStore(STORE).delete(id);
-    tx.oncomplete = res;
-    tx.onerror = e => rej(e.target.error);
-  });
-}
-
-// UI elements
-const form = document.getElementById('localForm');
+const form = document.getElementById('feedbackForm');
 const syncBtn = document.getElementById('syncBtn');
-const netSpan = document.getElementById('net');
-const queueCount = document.getElementById('queueCount');
 
-function updateNet() {
-  netSpan.textContent = navigator.onLine ? 'Online' : 'Offline';
-}
-window.addEventListener('online', () => {
-  updateNet();
-  trySyncQueue();
-});
-window.addEventListener('offline', updateNet);
-updateNet();
-
-async function updateQueueCount() {
-  const q = await getQueue();
-  queueCount.textContent = q.length;
-}
-
-form.addEventListener('submit', async e => {
+form.addEventListener('submit', e => {
   e.preventDefault();
+
   const data = {
-    name: q_name.value,
-    designation: q_designation.value,
-    batch: q_batch.value,
+    name: q_name.value.trim(),
+    designation: q_designation.value.trim(),
+    batch: document.querySelector('input[name="batch"]:checked')?.value || '',
     content: q_content.value,
     coverage: q_coverage.value,
     usefulness: q_usefulness.value,
     application: q_application.value,
     presentation: q_presentation.value,
     overall: q_overall.value,
-    remarks: q_remarks.value
+    remarks: q_remarks.value.trim()
   };
-  await addToQueue(data);
+
+  saveOffline(data);
+  alert('Saved offline successfully!');
   form.reset();
-  await updateQueueCount();
-  alert('Saved locally. Will sync when online.');
-  if (navigator.onLine) trySyncQueue();
 });
 
-syncBtn.addEventListener('click', trySyncQueue);
+syncBtn.addEventListener('click', syncData);
+
+function saveOffline(entry) {
+  const existing = JSON.parse(localStorage.getItem('responses') || '[]');
+  existing.push(entry);
+  localStorage.setItem('responses', JSON.stringify(existing));
+}
+
+async function syncData() {
+  const all = JSON.parse(localStorage.getItem('responses') || '[]');
+  if (!all.length) {
+    alert('No responses to sync.');
+    return;
+  }
+
+  let count = 0;
+  for (const entry of all) {
+    await postToGoogleForm(entry);
+    count++;
+  }
+
+  localStorage.removeItem('responses');
+  alert(`Synced ${count} responses successfully.`);
+}
 
 function postToGoogleForm(data) {
   return new Promise(resolve => {
@@ -132,7 +88,8 @@ function postToGoogleForm(data) {
     }
 
     const iframe = document.querySelector('iframe[name="hidden_iframe"]');
-    const timeout = setTimeout(resolve, 10000);
+    const timeout = setTimeout(resolve, 8000);
+
     iframe.addEventListener('load', function handler() {
       clearTimeout(timeout);
       iframe.removeEventListener('load', handler);
@@ -144,25 +101,3 @@ function postToGoogleForm(data) {
     document.body.removeChild(formEl);
   });
 }
-
-async function trySyncQueue() {
-  if (!navigator.onLine) {
-    alert('No network connection.');
-    return;
-  }
-  const items = await getQueue();
-  if (!items.length) {
-    alert('No pending responses.');
-    return;
-  }
-
-  for (const item of items) {
-    await postToGoogleForm(item.data);
-    await removeItem(item.id);
-  }
-  await updateQueueCount();
-  alert('All responses synced!');
-}
-
-updateQueueCount();
-if (navigator.onLine) trySyncQueue();
