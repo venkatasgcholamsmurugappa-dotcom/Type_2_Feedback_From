@@ -7,82 +7,91 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h2>Competency Building Workshop for Officers & Staffs</h2>
+  <div class="container">
+    <h2>Competency Building Workshop<br>for Officers & Staffs</h2>
 
-  <form id="feedbackForm">
+    <form id="feedbackForm" class="card">
 
-    <label>Name of Participant:
-      <input type="text" id="q_name" required />
-    </label>
+      <label>Name of Participant
+        <input type="text" id="q_name" placeholder="Enter your name" required />
+      </label>
 
-    <fieldset>
-      <legend>Designation</legend>
-      <label><input type="radio" name="designation" value="Officer" required /> Officer</label>
-      <label><input type="radio" name="designation" value="Staff" /> Staff</label>
-    </fieldset>
+      <fieldset>
+        <legend>Designation</legend>
+        <label><input type="radio" name="designation" value="Officer" required /> Officer</label>
+        <label><input type="radio" name="designation" value="Staff" /> Staff</label>
+      </fieldset>
 
-    <fieldset>
-      <legend>Attending Batch</legend>
-      <label><input type="radio" name="batch" value="Batch 1" required /> Batch 1</label>
-      <label><input type="radio" name="batch" value="Batch 2" /> Batch 2</label>
-    </fieldset>
+      <fieldset>
+        <legend>Attending Batch</legend>
+        <label><input type="radio" name="batch" value="Batch 1" required /> Batch 1</label>
+        <label><input type="radio" name="batch" value="Batch 2" /> Batch 2</label>
+      </fieldset>
 
-    <fieldset>
-      <legend>Content</legend>
-      <label><input type="radio" name="content" value="Excellent" required /> Excellent</label>
-      <label><input type="radio" name="content" value="Good" /> Good</label>
-      <label><input type="radio" name="content" value="Average" /> Average</label>
-      <label><input type="radio" name="content" value="Poor" /> Poor</label>
-    </fieldset>
+      <!-- Repeat same pattern for each rating question -->
+      <fieldset>
+        <legend>Content</legend>
+        <label><input type="radio" name="content" value="Excellent" required /> Excellent</label>
+        <label><input type="radio" name="content" value="Good" /> Good</label>
+        <label><input type="radio" name="content" value="Average" /> Average</label>
+        <label><input type="radio" name="content" value="Poor" /> Poor</label>
+      </fieldset>
 
-    <fieldset>
-      <legend>Coverage</legend>
-      <label><input type="radio" name="coverage" value="Excellent" required /> Excellent</label>
-      <label><input type="radio" name="coverage" value="Good" /> Good</label>
-      <label><input type="radio" name="coverage" value="Average" /> Average</label>
-      <label><input type="radio" name="coverage" value="Poor" /> Poor</label>
-    </fieldset>
+      <fieldset>
+        <legend>Coverage</legend>
+        <label><input type="radio" name="coverage" value="Excellent" required /> Excellent</label>
+        <label><input type="radio" name="coverage" value="Good" /> Good</label>
+        <label><input type="radio" name="coverage" value="Average" /> Average</label>
+        <label><input type="radio" name="coverage" value="Poor" /> Poor</label>
+      </fieldset>
 
-    <fieldset>
-      <legend>Usefulness</legend>
-      <label><input type="radio" name="usefulness" value="Excellent" required /> Excellent</label>
-      <label><input type="radio" name="usefulness" value="Good" /> Good</label>
-      <label><input type="radio" name="usefulness" value="Average" /> Average</label>
-      <label><input type="radio" name="usefulness" value="Poor" /> Poor</label>
-    </fieldset>
+      <fieldset>
+        <legend>Usefulness</legend>
+        <label><input type="radio" name="usefulness" value="Excellent" required /> Excellent</label>
+        <label><input type="radio" name="usefulness" value="Good" /> Good</label>
+        <label><input type="radio" name="usefulness" value="Average" /> Average</label>
+        <label><input type="radio" name="usefulness" value="Poor" /> Poor</label>
+      </fieldset>
 
-    <fieldset>
-      <legend>Application</legend>
-      <label><input type="radio" name="application" value="Excellent" required /> Excellent</label>
-      <label><input type="radio" name="application" value="Good" /> Good</label>
-      <label><input type="radio" name="application" value="Average" /> Average</label>
-      <label><input type="radio" name="application" value="Poor" /> Poor</label>
-    </fieldset>
+      <fieldset>
+        <legend>Application</legend>
+        <label><input type="radio" name="application" value="Excellent" required /> Excellent</label>
+        <label><input type="radio" name="application" value="Good" /> Good</label>
+        <label><input type="radio" name="application" value="Average" /> Average</label>
+        <label><input type="radio" name="application" value="Poor" /> Poor</label>
+      </fieldset>
 
-    <fieldset>
-      <legend>Presentations of the Faculty</legend>
-      <label><input type="radio" name="presentation" value="Excellent" required /> Excellent</label>
-      <label><input type="radio" name="presentation" value="Good" /> Good</label>
-      <label><input type="radio" name="presentation" value="Average" /> Average</label>
-      <label><input type="radio" name="presentation" value="Poor" /> Poor</label>
-    </fieldset>
+      <fieldset>
+        <legend>Presentation of the Faculty</legend>
+        <label><input type="radio" name="presentation" value="Excellent" required /> Excellent</label>
+        <label><input type="radio" name="presentation" value="Good" /> Good</label>
+        <label><input type="radio" name="presentation" value="Average" /> Average</label>
+        <label><input type="radio" name="presentation" value="Poor" /> Poor</label>
+      </fieldset>
 
-    <fieldset>
-      <legend>Overall Feedback</legend>
-      <label><input type="radio" name="overall" value="Excellent" required /> Excellent</label>
-      <label><input type="radio" name="overall" value="Good" /> Good</label>
-      <label><input type="radio" name="overall" value="Average" /> Average</label>
-      <label><input type="radio" name="overall" value="Poor" /> Poor</label>
-    </fieldset>
+      <fieldset>
+        <legend>Overall Feedback</legend>
+        <label><input type="radio" name="overall" value="Excellent" required /> Excellent</label>
+        <label><input type="radio" name="overall" value="Good" /> Good</label>
+        <label><input type="radio" name="overall" value="Average" /> Average</label>
+        <label><input type="radio" name="overall" value="Poor" /> Poor</label>
+      </fieldset>
 
-    <label>Remarks and Suggestions:
-      <textarea id="q_remarks" rows="3"></textarea>
-    </label>
+      <label>Remarks and Suggestions
+        <textarea id="q_remarks" rows="3" placeholder="Your remarks..."></textarea>
+      </label>
 
-    <button type="submit">💾 Save Response</button>
-  </form>
+      <button type="submit" class="primary">💾 Save Response</button>
+    </form>
 
-  <button id="syncBtn">🔄 Sync Now</button>
+    <div class="bottom-bar">
+      <button id="syncBtn" class="secondary">🔄 Sync Now</button>
+      <p id="offlineCount">📦 Offline responses: 0</p>
+    </div>
+  </div>
+
+  <!-- Success popup -->
+  <div id="popup" class="popup hidden">✅ Synced Successfully!</div>
 
   <iframe name="hidden_iframe" style="display:none;"></iframe>
   <script src="app.js"></script>
