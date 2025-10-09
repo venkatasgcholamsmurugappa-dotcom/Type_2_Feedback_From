@@ -1,120 +1,93 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Competency Building Workshop – Offline Feedback</title>
-  <style>
-    body { font-family: system-ui, sans-serif; margin: 20px; max-width: 700px; }
-    h1 { text-align: center; }
-    label { display: block; margin-top: 12px; font-weight: bold; }
-    input, select, textarea { width: 100%; padding: 8px; margin-top: 4px; }
-    button { margin-top: 16px; padding: 10px 16px; }
-    #status { margin-top: 16px; font-weight: bold; }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Competency Building Workshop for Senior Officers – GSO</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>Competency Building Workshop for Senior Officers – GSO</h1>
+  <h2>Competency Building Workshop for Senior Officers – GSO</h2>
 
-  <form id="localForm">
-
-    <label>1. Name of Participant
-      <input type="text" id="q_name" required>
+  <form id="feedbackForm">
+    <label>Name of Participant:
+      <input type="text" id="q_name" required />
     </label>
 
-    <label>2. Designation
-      <input type="text" id="q_designation" required>
+    <label>Designation:
+      <input type="text" id="q_designation" required />
     </label>
 
-    <label>3. Attending Batch
-      <select id="q_batch" required>
-        <option value="">--Select--</option>
-        <option value="Batch 1">Batch 1</option>
-        <option value="Batch 2">Batch 2</option>
-      </select>
-    </label>
+    <fieldset>
+      <legend>Attending Batch:</legend>
+      <label><input type="radio" name="batch" value="Batch 1" required /> Batch 1</label>
+      <label><input type="radio" name="batch" value="Batch 2" /> Batch 2</label>
+    </fieldset>
 
-    <label>4. Content
+    <fieldset>
+      <legend>4. Content</legend>
       <select id="q_content" required>
         <option value="">--Select--</option>
-        <option>Excellent</option>
-        <option>Good</option>
-        <option>Average</option>
-        <option>Poor</option>
+        <option>Excellent</option><option>Good</option>
+        <option>Average</option><option>Poor</option>
       </select>
-    </label>
+    </fieldset>
 
-    <label>5. Coverage
+    <fieldset>
+      <legend>5. Coverage</legend>
       <select id="q_coverage" required>
         <option value="">--Select--</option>
-        <option>Excellent</option>
-        <option>Good</option>
-        <option>Average</option>
-        <option>Poor</option>
+        <option>Excellent</option><option>Good</option>
+        <option>Average</option><option>Poor</option>
       </select>
-    </label>
+    </fieldset>
 
-    <label>6. Usefulness
+    <fieldset>
+      <legend>6. Usefulness</legend>
       <select id="q_usefulness" required>
         <option value="">--Select--</option>
-        <option>Excellent</option>
-        <option>Good</option>
-        <option>Average</option>
-        <option>Poor</option>
+        <option>Excellent</option><option>Good</option>
+        <option>Average</option><option>Poor</option>
       </select>
-    </label>
+    </fieldset>
 
-    <label>7. Application
+    <fieldset>
+      <legend>7. Application</legend>
       <select id="q_application" required>
         <option value="">--Select--</option>
-        <option>Excellent</option>
-        <option>Good</option>
-        <option>Average</option>
-        <option>Poor</option>
+        <option>Excellent</option><option>Good</option>
+        <option>Average</option><option>Poor</option>
       </select>
-    </label>
+    </fieldset>
 
-    <label>8. Presentations of the Faculty
+    <fieldset>
+      <legend>8. Presentations of the Faculty</legend>
       <select id="q_presentation" required>
         <option value="">--Select--</option>
-        <option>Excellent</option>
-        <option>Good</option>
-        <option>Average</option>
-        <option>Poor</option>
+        <option>Excellent</option><option>Good</option>
+        <option>Average</option><option>Poor</option>
       </select>
-    </label>
+    </fieldset>
 
-    <label>9. Overall Feedback
+    <fieldset>
+      <legend>9. Overall Feedback</legend>
       <select id="q_overall" required>
         <option value="">--Select--</option>
-        <option>Excellent</option>
-        <option>Good</option>
-        <option>Average</option>
-        <option>Poor</option>
+        <option>Excellent</option><option>Good</option>
+        <option>Average</option><option>Poor</option>
       </select>
+    </fieldset>
+
+    <label>10. Remarks and Suggestions:
+      <textarea id="q_remarks" rows="3"></textarea>
     </label>
 
-    <label>10. Remarks and Suggestions
-      <textarea id="q_remarks" rows="4"></textarea>
-    </label>
-
-    <button type="submit">💾 Save (Works Offline)</button>
+    <button type="submit">Save Response</button>
   </form>
 
-  <button id="syncBtn">🔁 Sync Now</button>
-
-  <div id="status">
-    Network: <span id="net">--</span> |
-    Pending Responses: <span id="queueCount">0</span>
-  </div>
+  <button id="syncBtn">Sync Now</button>
 
   <iframe name="hidden_iframe" style="display:none;"></iframe>
-
   <script src="app.js"></script>
-  <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('./service-worker.js');
-    }
-  </script>
 </body>
 </html>
