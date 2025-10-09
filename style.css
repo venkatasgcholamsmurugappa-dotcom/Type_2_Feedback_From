@@ -1,26 +1,134 @@
+:root {
+  --primary: #004aad;
+  --secondary: #00a86b;
+  --bg: #f7f9fb;
+  --card-bg: #fff;
+  --text: #222;
+  --radius: 10px;
+}
+
 body {
-  font-family: Arial, sans-serif;
-  max-width: 600px;
-  margin: 20px auto;
+  font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+  background: var(--bg);
+  margin: 0;
+  padding: 0;
+  color: var(--text);
+}
+
+.container {
+  max-width: 650px;
+  margin: 30px auto;
   padding: 0 15px;
-}
-
-fieldset {
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  padding: 10px;
-}
-
-legend {
-  font-weight: bold;
-}
-
-button {
-  padding: 8px 16px;
-  margin-top: 10px;
-  cursor: pointer;
 }
 
 h2 {
   text-align: center;
+  color: var(--primary);
+  margin-bottom: 20px;
+}
+
+.card {
+  background: var(--card-bg);
+  padding: 20px;
+  border-radius: var(--radius);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+  animation: fadeIn 0.5s ease;
+}
+
+label, legend {
+  font-weight: 500;
+}
+
+fieldset {
+  margin: 15px 0;
+  border: 1px solid #ddd;
+  border-radius: var(--radius);
+  padding: 10px;
+  transition: 0.3s;
+}
+
+fieldset:hover {
+  border-color: var(--primary);
+}
+
+input[type="text"], textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: var(--radius);
+  margin-top: 5px;
+  font-size: 1em;
+  transition: 0.2s;
+}
+
+input[type="text"]:focus, textarea:focus {
+  border-color: var(--primary);
+  outline: none;
+}
+
+button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: 1em;
+  transition: transform 0.2s ease, background 0.3s ease;
+}
+
+button:hover {
+  transform: translateY(-2px);
+}
+
+.primary {
+  background: var(--primary);
+  color: white;
+  width: 100%;
+}
+
+.secondary {
+  background: var(--secondary);
+  color: white;
+}
+
+.bottom-bar {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#offlineCount {
+  font-size: 0.95em;
+  color: #444;
+}
+
+/* Popup styling */
+.popup {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--secondary);
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: var(--radius);
+  font-weight: bold;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s, transform 0.4s;
+  z-index: 100;
+}
+
+.popup.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.hidden {
+  display: none;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
