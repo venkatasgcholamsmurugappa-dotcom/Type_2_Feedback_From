@@ -20,7 +20,7 @@ const syncBtn = document.getElementById('syncBtn');
 form.addEventListener('submit', e => {
   e.preventDefault();
 
-  const data = {
+const data = {
   name: q_name.value.trim(),
   designation: q_designation.value.trim(),
   batch: document.querySelector('input[name="batch"]:checked')?.value || '',
