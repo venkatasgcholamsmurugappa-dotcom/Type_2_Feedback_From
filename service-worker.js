@@ -1,10 +1,10 @@
 const CACHE = 'offline-cache-v1';
 const FILES = [
-  '/',
-  '/index.html',
-  '/app.js',
-  '/style.css',
-  '/service-worker.js'
+  './',
+  './index.html',
+  './app.js',
+  './style.css',
+  './service-worker.js'
 ];
 
 self.addEventListener('install', event => {
@@ -21,9 +21,7 @@ self.addEventListener('activate', event => {
 self.addEventListener('fetch', event => {
   if (event.request.method === 'GET') {
     event.respondWith(
-      caches.match(event.request).then(cachedResponse => {
-        return cachedResponse || fetch(event.request);
-      })
+      caches.match(event.request).then(cachedResponse => cachedResponse || fetch(event.request))
     );
   }
 });
