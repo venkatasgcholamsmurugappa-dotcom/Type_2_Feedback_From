@@ -24,13 +24,18 @@ const qState = document.getElementById('q_state');
 const qLocation = document.getElementById('q_location');
 const locationContainer = document.getElementById('locationContainer');
 
-// -------- Load States --------
 let locationsData = {};
+
+// Load States (unique) from locations.json and populate state select
 fetch('locations.json')
   .then(res => res.json())
   .then(data => {
     locationsData = data;
-    Object.keys(data).forEach(state => {
+    qState.innerHTML = '<option value="">--Select State Office--</option>';
+
+    // Use Set to avoid duplicates if any
+    const uniqueStates = [...new Set(Object.keys(data))];
+    uniqueStates.forEach(state => {
       const opt = document.createElement('option');
       opt.value = state;
       opt.textContent = state;
@@ -38,9 +43,11 @@ fetch('locations.json')
     });
   });
 
+// Populate location dropdown based on state
 qState.addEventListener('change', () => {
   const state = qState.value;
-  qLocation.innerHTML = '';
+  qLocation.innerHTML = '<option value="">--Select Location--</option>';
+
   if (locationsData[state]) {
     locationsData[state].forEach(loc => {
       const opt = document.createElement('option');
@@ -54,24 +61,24 @@ qState.addEventListener('change', () => {
   }
 });
 
-// -------- Offline Save --------
+// Form submit - save offline
 form.addEventListener('submit', e => {
   e.preventDefault();
 
   const data = {
-    name: q_name.value.trim(),
+    name: document.getElementById('q_name').value.trim(),
     designation: document.querySelector('input[name="designation"]:checked')?.value || '',
-    date: q_date.value,
+    date: document.getElementById('q_date').value,
     batch: document.querySelector('input[name="batch"]:checked')?.value || '',
-    state: q_state.value,
-    location: q_location.value,
-    expect1: q_expect1.value,
-    expect2: q_expect2.value,
-    expect3: q_expect3.value,
-    expect4: q_expect4.value,
-    expect5: q_expect5.value,
-    expect6: q_expect6.value,
-    remarks: q_remarks.value.trim()
+    state: qState.value,
+    location: qLocation.value,
+    expect1: document.getElementById('q_expect1').value,
+    expect2: document.getElementById('q_expect2').value,
+    expect3: document.getElementById('q_expect3').value,
+    expect4: document.getElementById('q_expect4').value,
+    expect5: document.getElementById('q_expect5').value,
+    expect6: document.getElementById('q_expect6').value,
+    remarks: document.getElementById('q_remarks').value.trim()
   };
 
   saveOffline(data);
@@ -81,21 +88,24 @@ form.addEventListener('submit', e => {
   alert('✅ Saved offline successfully!');
 });
 
-syncBtn.addEventListener('click', syncData);
-
+// Save to localStorage
 function saveOffline(entry) {
   const existing = JSON.parse(localStorage.getItem('responses') || '[]');
   existing.push(entry);
   localStorage.setItem('responses', JSON.stringify(existing));
 }
 
+// Update offline count display
 function updateStatus() {
   const all = JSON.parse(localStorage.getItem('responses') || '[]');
   statusBar.textContent = `📦 Offline responses stored: ${all.length}`;
 }
 updateStatus();
 
-// -------- Sync Logic --------
+// Sync button click
+syncBtn.addEventListener('click', syncData);
+
+// Sync logic: post all saved responses to Google Form
 async function syncData() {
   const all = JSON.parse(localStorage.getItem('responses') || '[]');
   if (!all.length) return;
@@ -111,6 +121,7 @@ async function syncData() {
   alert(`☁️ Synced ${count} responses successfully.`);
 }
 
+// Post one entry to Google Form via hidden form + iframe trick
 function postToGoogleForm(data) {
   return new Promise(resolve => {
     const formEl = document.createElement('form');
@@ -148,17 +159,46 @@ function postToGoogleForm(data) {
   });
 }
 
-// -------- PWA Register + Background Sync --------
+// Register service worker and background sync
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('service-worker.js').then(reg => {
     window.addEventListener('online', () => {
-      reg.sync.register('sync-responses');
+      if (reg.sync) {
+        reg.sync.register('sync-responses').catch(console.error);
+      }
     });
   });
 }
-// Collapsible Sections
-function toggleSection(header) {
-  const section = header.parentElement;
-  section.classList.toggle('active');
-}
 
+// Collapsible sections with smooth slide toggle
+document.querySelectorAll('.section-header').forEach(header => {
+  header.addEventListener('click', () => {
+    const section = header.parentElement;
+    const content = section.querySelector('.section-content');
+
+    if (section.classList.contains('collapsed')) {
+      // Expand section
+      section.classList.remove('collapsed');
+      content.style.height = content.scrollHeight + 'px';
+      setTimeout(() => {
+        content.style.height = 'auto';
+      }, 300);
+    } else {
+      // Collapse section
+      content.style.height = content.scrollHeight + 'px'; // set current height explicitly
+      setTimeout(() => {
+        content.style.height = '0';
+      }, 10);
+      setTimeout(() => {
+        section.classList.add('collapsed');
+      }, 300);
+    }
+  });
+});
+
+// Initialize collapsible sections open
+document.querySelectorAll('.section').forEach(section => {
+  const content = section.querySelector('.section-content');
+  content.style.height = 'auto'; // initially expanded
+  section.classList.remove('collapsed');
+});
