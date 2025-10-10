@@ -5,14 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Competency Building Workshop for Officers & Staffs</title>
   <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
 </head>
 <body>
-  <main class="container">
-    <h1>Competency Building Workshop for Officers & Staffs</h1>
+  <div class="container">
+    <h1>Competency Building Workshop<br>for Officers & Staffs</h1>
 
     <form id="feedbackForm">
-      <label>Name of Participant:
-        <input type="text" id="q_name" required />
+      <label class="floating">
+        <input type="text" id="q_name" placeholder=" " required />
+        <span class="label-text">Name of Participant</span>
       </label>
 
       <fieldset>
@@ -21,8 +23,9 @@
         <label><input type="radio" name="designation" value="Staff" /> Staff</label>
       </fieldset>
 
-      <label>Date of the Program:
-        <input type="date" id="q_date" required />
+      <label class="floating">
+        <input type="date" id="q_date" placeholder=" " required />
+        <span class="label-text">Date of the Program</span>
       </label>
 
       <fieldset>
@@ -31,22 +34,35 @@
         <label><input type="radio" name="batch" value="Batch 2" /> Batch 2</label>
       </fieldset>
 
-      <label>State Office:
+      <label>
+        <span>State Office</span>
         <select id="q_state" required>
           <option value="">--Select State Office--</option>
+          <option>Rajasthan State Office</option>
+          <option>Tamil Nadu State Office</option>
+          <option>Gujarat State Office</option>
+          <option>West Bengal State Office</option>
+          <option>Indian Oil Assam Oil Division</option>
+          <option>Punjab Himachal State Office</option>
+          <option>Bihar State Office</option>
+          <option>Karnataka State Office</option>
+          <option>Maharashtra State Office</option>
+          <option>AFS</option>
         </select>
       </label>
 
-      <label id="locationContainer" class="hidden">Location:
-        <select id="q_location" required></select>
+      <label id="locationContainer" class="hidden">
+        <span>Location</span>
+        <select id="q_location">
+          <option value="">--Select Location--</option>
+        </select>
       </label>
 
       <fieldset>
         <legend>To What Extent your Objectives/Expectations were met?</legend>
-
         <div class="grid">
           <label>Program met my expectations:
-            <select id="q_expect1" required>
+            <select id="q_obj1" required>
               <option value="">--Select--</option>
               <option>Very satisfied (5)</option>
               <option>Satisfied (4)</option>
@@ -56,8 +72,8 @@
             </select>
           </label>
 
-          <label>Program clarifies my roles:
-            <select id="q_expect2" required>
+          <label>Program clarified my roles:
+            <select id="q_obj2" required>
               <option value="">--Select--</option>
               <option>Very satisfied (5)</option>
               <option>Satisfied (4)</option>
@@ -68,7 +84,7 @@
           </label>
 
           <label>Program enhanced my knowledge:
-            <select id="q_expect3" required>
+            <select id="q_obj3" required>
               <option value="">--Select--</option>
               <option>Very satisfied (5)</option>
               <option>Satisfied (4)</option>
@@ -78,8 +94,8 @@
             </select>
           </label>
 
-          <label>Program will be useful to improve safety culture:
-            <select id="q_expect4" required>
+          <label>Program useful for safety culture:
+            <select id="q_obj4" required>
               <option value="">--Select--</option>
               <option>Very satisfied (5)</option>
               <option>Satisfied (4)</option>
@@ -89,8 +105,8 @@
             </select>
           </label>
 
-          <label>Instructional Methods of the Faculty:
-            <select id="q_expect5" required>
+          <label>Instructional Methods of Faculty:
+            <select id="q_obj5" required>
               <option value="">--Select--</option>
               <option>Very satisfied (5)</option>
               <option>Satisfied (4)</option>
@@ -101,7 +117,7 @@
           </label>
 
           <label>Overall Assessment:
-            <select id="q_expect6" required>
+            <select id="q_obj6" required>
               <option value="">--Select--</option>
               <option>Very satisfied (5)</option>
               <option>Satisfied (4)</option>
@@ -113,20 +129,21 @@
         </div>
       </fieldset>
 
-      <label>Remarks and Suggestions:
-        <textarea id="q_remarks" rows="3"></textarea>
+      <label class="floating">
+        <textarea id="q_remarks" placeholder=" " rows="3"></textarea>
+        <span class="label-text">Remarks and Suggestions</span>
       </label>
 
-      <button type="submit" class="save-btn">💾 Save Response</button>
+      <div class="actions">
+        <button type="submit" class="save-btn">💾 Save Response</button>
+        <button type="button" id="syncBtn" class="sync-btn">🔄 Sync Now</button>
+      </div>
+
+      <p id="statusBar">Offline responses: <span id="responseCount">0</span></p>
     </form>
+  </div>
 
-    <div class="actions">
-      <button id="syncBtn" class="sync-btn">☁️ Sync Now</button>
-      <div id="statusBar">📦 Offline responses stored: 0</div>
-    </div>
-
-    <iframe name="hidden_iframe" style="display:none;"></iframe>
-  </main>
+  <iframe name="hidden_iframe" style="display:none;"></iframe>
   <script src="app.js"></script>
 </body>
 </html>
