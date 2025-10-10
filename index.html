@@ -2,194 +2,168 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Competency Building Workshop</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Feedback Form</title>
   <link rel="stylesheet" href="style.css" />
-  <link rel="manifest" href="manifest.json" />
 </head>
 <body>
   <div class="app">
-    <div class="header">
-      <h1>Competency Building Workshop</h1>
-      <p>For Officers & Staffs</p>
-    </div>
+    <header class="header">
+      <h1>Feedback Form</h1>
+      <p>Please fill out the form below</p>
+    </header>
 
     <form id="feedbackForm" class="form">
-      <!-- Section 1 -->
+
+      <!-- Section: Personal Info -->
       <div class="section">
-        <div class="section-header" onclick="toggleSection(this)">
-          <h2>👤 Participant Details</h2>
-          <span class="arrow">▼</span>
-        </div>
+        <div class="section-header">Personal Information</div>
         <div class="section-content">
           <div class="input-group">
-            <label for="q_name">Name of Participant</label>
+            <label for="q_name">Name:</label>
             <input type="text" id="q_name" required />
           </div>
 
-          <fieldset>
-            <legend>Designation</legend>
-            <div class="radio-group">
-              <label><input type="radio" name="designation" value="Officer" required /> Officer</label>
-              <label><input type="radio" name="designation" value="Staff" /> Staff</label>
-            </div>
-          </fieldset>
-
           <div class="input-group">
-            <label for="q_date">Date of the Program</label>
-            <div class="date-wrapper">
-              <input type="date" id="q_date" required />
-              <span class="calendar-icon">📅</span>
-            </div>
+            <label>Designation:</label>
+            <label><input type="radio" name="designation" value="Officer" required /> Officer</label>
+            <label><input type="radio" name="designation" value="Staff" /> Staff</label>
           </div>
 
-          <fieldset>
-            <legend>Attending Batch</legend>
-            <div class="radio-group">
-              <label><input type="radio" name="batch" value="Batch 1" required /> Batch 1</label>
-              <label><input type="radio" name="batch" value="Batch 2" /> Batch 2</label>
-            </div>
-          </fieldset>
+          <div class="input-group">
+            <label for="q_date">Date:</label>
+            <input type="date" id="q_date" required />
+          </div>
+
+          <div class="input-group">
+            <label>Batch:</label>
+            <label><input type="radio" name="batch" value="Batch 1" required /> Batch 1</label>
+            <label><input type="radio" name="batch" value="Batch 2" /> Batch 2</label>
+            <label><input type="radio" name="batch" value="Batch 3" /> Batch 3</label>
+          </div>
         </div>
       </div>
 
-      <!-- Section 2 -->
+      <!-- Section: Office & Location -->
       <div class="section">
-        <div class="section-header" onclick="toggleSection(this)">
-          <h2>🏢 Office Details</h2>
-          <span class="arrow">▼</span>
-        </div>
+        <div class="section-header">Office & Location</div>
         <div class="section-content">
           <div class="input-group">
-            <label for="q_state">State Office</label>
+            <label for="q_state">State Office:</label>
             <select id="q_state" required>
-              <option value="">--Select--</option>
-              <option>Rajasthan State Office</option>
-              <option>Tamil Nadu State Office</option>
-              <option>Gujarat State Office</option>
-              <option>West Bengal State Office</option>
-              <option>Indian Oil Assam Oil Division</option>
-              <option>Punjab Himachal State Office</option>
-              <option>Bihar State Office</option>
-              <option>Karnataka State Office</option>
-              <option>Maharashtra State Office</option>
-              <option>AFS</option>
+              <option value="">--Select State Office--</option>
             </select>
           </div>
 
-          <div class="input-group hidden" id="locationContainer">
-            <label for="q_location">Location</label>
-            <select id="q_location">
+          <div id="locationContainer" class="hidden input-group">
+            <label for="q_location">Location:</label>
+            <select id="q_location" required>
               <option value="">--Select Location--</option>
             </select>
           </div>
         </div>
       </div>
 
-      <!-- Section 3 -->
+      <!-- Section: Objectives Met -->
       <div class="section">
-        <div class="section-header" onclick="toggleSection(this)">
-          <h2>📊 Objectives & Assessment</h2>
-          <span class="arrow">▼</span>
-        </div>
+        <div class="section-header">To What Extent Were Your Objectives Met?</div>
         <div class="section-content">
           <fieldset>
-            <legend>To What Extent Were Your Objectives Met?</legend>
-            <div class="objective-list">
-              <label>Program met my expectations
-                <select id="q_obj1" required>
-                  <option value="">--Select--</option>
-                  <option>Very satisfied (5)</option>
-                  <option>Satisfied (4)</option>
-                  <option>Neutral (3)</option>
-                  <option>dissatisfied (2)</option>
-                  <option>Very dissatisfied (1)</option>
-                </select>
-              </label>
+            <legend>Question 1</legend>
+            <select id="q_expect1" required>
+              <option value="">Select</option>
+              <option value="Very satisfied (5)">Very satisfied (5)</option>
+              <option value="Satisfied (4)">Satisfied (4)</option>
+              <option value="Neutral (3)">Neutral (3)</option>
+              <option value="Dissatisfied (2)">Dissatisfied (2)</option>
+              <option value="Very dissatisfied (1)">Very dissatisfied (1)</option>
+            </select>
+          </fieldset>
 
-              <label>Program clarified my roles
-                <select id="q_obj2" required>
-                  <option value="">--Select--</option>
-                  <option>Very satisfied (5)</option>
-                  <option>Satisfied (4)</option>
-                  <option>Neutral (3)</option>
-                  <option>dissatisfied (2)</option>
-                  <option>Very dissatisfied (1)</option>
-                </select>
-              </label>
+          <fieldset>
+            <legend>Question 2</legend>
+            <select id="q_expect2" required>
+              <option value="">Select</option>
+              <option value="Very satisfied (5)">Very satisfied (5)</option>
+              <option value="Satisfied (4)">Satisfied (4)</option>
+              <option value="Neutral (3)">Neutral (3)</option>
+              <option value="Dissatisfied (2)">Dissatisfied (2)</option>
+              <option value="Very dissatisfied (1)">Very dissatisfied (1)</option>
+            </select>
+          </fieldset>
 
-              <label>Enhanced my knowledge
-                <select id="q_obj3" required>
-                  <option value="">--Select--</option>
-                  <option>Very satisfied (5)</option>
-                  <option>Satisfied (4)</option>
-                  <option>Neutral (3)</option>
-                  <option>dissatisfied (2)</option>
-                  <option>Very dissatisfied (1)</option>
-                </select>
-              </label>
+          <fieldset>
+            <legend>Question 3</legend>
+            <select id="q_expect3" required>
+              <option value="">Select</option>
+              <option value="Very satisfied (5)">Very satisfied (5)</option>
+              <option value="Satisfied (4)">Satisfied (4)</option>
+              <option value="Neutral (3)">Neutral (3)</option>
+              <option value="Dissatisfied (2)">Dissatisfied (2)</option>
+              <option value="Very dissatisfied (1)">Very dissatisfied (1)</option>
+            </select>
+          </fieldset>
 
-              <label>Useful for safety culture
-                <select id="q_obj4" required>
-                  <option value="">--Select--</option>
-                  <option>Very satisfied (5)</option>
-                  <option>Satisfied (4)</option>
-                  <option>Neutral (3)</option>
-                  <option>dissatisfied (2)</option>
-                  <option>Very dissatisfied (1)</option>
-                </select>
-              </label>
+          <fieldset>
+            <legend>Question 4</legend>
+            <select id="q_expect4" required>
+              <option value="">Select</option>
+              <option value="Very satisfied (5)">Very satisfied (5)</option>
+              <option value="Satisfied (4)">Satisfied (4)</option>
+              <option value="Neutral (3)">Neutral (3)</option>
+              <option value="Dissatisfied (2)">Dissatisfied (2)</option>
+              <option value="Very dissatisfied (1)">Very dissatisfied (1)</option>
+            </select>
+          </fieldset>
 
-              <label>Instructional Methods
-                <select id="q_obj5" required>
-                  <option value="">--Select--</option>
-                  <option>Very satisfied (5)</option>
-                  <option>Satisfied (4)</option>
-                  <option>Neutral (3)</option>
-                  <option>dissatisfied (2)</option>
-                  <option>Very dissatisfied (1)</option>
-                </select>
-              </label>
+          <fieldset>
+            <legend>Question 5</legend>
+            <select id="q_expect5" required>
+              <option value="">Select</option>
+              <option value="Very satisfied (5)">Very satisfied (5)</option>
+              <option value="Satisfied (4)">Satisfied (4)</option>
+              <option value="Neutral (3)">Neutral (3)</option>
+              <option value="Dissatisfied (2)">Dissatisfied (2)</option>
+              <option value="Very dissatisfied (1)">Very dissatisfied (1)</option>
+            </select>
+          </fieldset>
 
-              <label>Overall Assessment
-                <select id="q_obj6" required>
-                  <option value="">--Select--</option>
-                  <option>Very satisfied (5)</option>
-                  <option>Satisfied (4)</option>
-                  <option>Neutral (3)</option>
-                  <option>dissatisfied (2)</option>
-                  <option>Very dissatisfied (1)</option>
-                </select>
-              </label>
-            </div>
+          <fieldset>
+            <legend>Question 6</legend>
+            <select id="q_expect6" required>
+              <option value="">Select</option>
+              <option value="Very satisfied (5)">Very satisfied (5)</option>
+              <option value="Satisfied (4)">Satisfied (4)</option>
+              <option value="Neutral (3)">Neutral (3)</option>
+              <option value="Dissatisfied (2)">Dissatisfied (2)</option>
+              <option value="Very dissatisfied (1)">Very dissatisfied (1)</option>
+            </select>
           </fieldset>
         </div>
       </div>
 
-      <!-- Section 4 -->
+      <!-- Section: Remarks -->
       <div class="section">
-        <div class="section-header" onclick="toggleSection(this)">
-          <h2>🗒️ Remarks & Submit</h2>
-          <span class="arrow">▼</span>
-        </div>
+        <div class="section-header">Remarks</div>
         <div class="section-content">
           <div class="input-group">
-            <label for="q_remarks">Remarks and Suggestions</label>
-            <textarea id="q_remarks" rows="3"></textarea>
+            <label for="q_remarks">Your feedback:</label>
+            <textarea id="q_remarks" rows="4" placeholder="Write your remarks here..."></textarea>
           </div>
-
-          <button type="submit" class="btn-primary">💾 Save Response</button>
         </div>
       </div>
+
+      <button type="submit" class="btn-primary">Submit</button>
     </form>
 
-    <div class="footer">
-      <button id="syncBtn" class="btn-sync">🔄 Sync Now</button>
-      <span id="offlineCount">Offline responses: <b>0</b></span>
-    </div>
+    <footer class="footer">
+      <button id="syncBtn" class="btn-sync">Sync Offline Data</button>
+      <div id="statusBar">📦 Offline responses stored: 0</div>
+    </footer>
   </div>
 
-  <div id="popup" class="popup">Saved Offline!</div>
+  <!-- Hidden iframe for Google Form submission -->
+  <iframe name="hidden_iframe" style="display:none;"></iframe>
 
   <script src="app.js"></script>
 </body>
