@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Competency Building Workshop</title>
+  <title>Competency Building Workshop for Officers & Staffs</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <main class="container">
-    <h2>Competency Building Workshop for Officers & Staffs</h2>
+    <h1>Competency Building Workshop for Officers & Staffs</h1>
 
     <form id="feedbackForm">
-      <label>Name of Participant
+      <label>Name of Participant:
         <input type="text" id="q_name" required />
       </label>
 
@@ -21,7 +21,7 @@
         <label><input type="radio" name="designation" value="Staff" /> Staff</label>
       </fieldset>
 
-      <label>Date of Program
+      <label>Date of the Program:
         <input type="date" id="q_date" required />
       </label>
 
@@ -31,31 +31,22 @@
         <label><input type="radio" name="batch" value="Batch 2" /> Batch 2</label>
       </fieldset>
 
-      <label>State Office
+      <label>State Office:
         <select id="q_state" required>
-          <option value="">--Select--</option>
-          <option>Gujarat State Office</option>
-          <option>Tamil Nadu State Office</option>
-          <option>Rajasthan State Office</option>
-          <option>West Bengal State Office</option>
-          <option>Indian Oil Assam Oil Division</option>
-          <option>Punjab and Himachal State Office</option>
-          <option>Bihar State Office</option>
-          <option>Karnataka State Office</option>
-          <option>Maharashtra State Office</option>
-          <option>AFS</option>
+          <option value="">--Select State Office--</option>
         </select>
       </label>
 
-      <label id="locationLabel" style="display:none;">Location
+      <label id="locationContainer" class="hidden">Location:
         <select id="q_location" required></select>
       </label>
 
       <fieldset>
         <legend>To What Extent your Objectives/Expectations were met?</legend>
+
         <div class="grid">
-          <label>Program met my expectations
-            <select id="q_row1" required>
+          <label>Program met my expectations:
+            <select id="q_expect1" required>
               <option value="">--Select--</option>
               <option>Very satisfied (5)</option>
               <option>Satisfied (4)</option>
@@ -64,8 +55,9 @@
               <option>Very dissatisfied (1)</option>
             </select>
           </label>
-          <label>Program clarifies my roles...
-            <select id="q_row2" required>
+
+          <label>Program clarifies my roles:
+            <select id="q_expect2" required>
               <option value="">--Select--</option>
               <option>Very satisfied (5)</option>
               <option>Satisfied (4)</option>
@@ -74,8 +66,9 @@
               <option>Very dissatisfied (1)</option>
             </select>
           </label>
-          <label>Program enhanced my knowledge
-            <select id="q_row3" required>
+
+          <label>Program enhanced my knowledge:
+            <select id="q_expect3" required>
               <option value="">--Select--</option>
               <option>Very satisfied (5)</option>
               <option>Satisfied (4)</option>
@@ -84,8 +77,9 @@
               <option>Very dissatisfied (1)</option>
             </select>
           </label>
-          <label>Program will be useful to improve safety culture
-            <select id="q_row4" required>
+
+          <label>Program will be useful to improve safety culture:
+            <select id="q_expect4" required>
               <option value="">--Select--</option>
               <option>Very satisfied (5)</option>
               <option>Satisfied (4)</option>
@@ -94,8 +88,9 @@
               <option>Very dissatisfied (1)</option>
             </select>
           </label>
-          <label>Instructional Methods of the Faculty
-            <select id="q_row5" required>
+
+          <label>Instructional Methods of the Faculty:
+            <select id="q_expect5" required>
               <option value="">--Select--</option>
               <option>Very satisfied (5)</option>
               <option>Satisfied (4)</option>
@@ -104,8 +99,9 @@
               <option>Very dissatisfied (1)</option>
             </select>
           </label>
-          <label>Overall Assessment
-            <select id="q_row6" required>
+
+          <label>Overall Assessment:
+            <select id="q_expect6" required>
               <option value="">--Select--</option>
               <option>Very satisfied (5)</option>
               <option>Satisfied (4)</option>
@@ -117,20 +113,20 @@
         </div>
       </fieldset>
 
-      <label>Remarks and Suggestions
+      <label>Remarks and Suggestions:
         <textarea id="q_remarks" rows="3"></textarea>
       </label>
 
-      <button type="submit">Save Response</button>
+      <button type="submit" class="save-btn">💾 Save Response</button>
     </form>
 
-    <div class="footer">
-      <button id="syncBtn">Sync Now</button>
-      <p>Offline responses stored: <span id="counter">0</span></p>
+    <div class="actions">
+      <button id="syncBtn" class="sync-btn">☁️ Sync Now</button>
+      <div id="statusBar">📦 Offline responses stored: 0</div>
     </div>
-  </main>
 
-  <iframe name="hidden_iframe" style="display:none;"></iframe>
+    <iframe name="hidden_iframe" style="display:none;"></iframe>
+  </main>
   <script src="app.js"></script>
 </body>
 </html>
