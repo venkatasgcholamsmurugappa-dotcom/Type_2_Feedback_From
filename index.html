@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Competency Building Workshop for Officers & Staffs</title>
+  <title>Competency Building Workshop</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="manifest" href="manifest.json" />
 </head>
@@ -15,140 +15,172 @@
     </div>
 
     <form id="feedbackForm" class="form">
-
-      <div class="input-group">
-        <label for="q_name">Name of Participant</label>
-        <input type="text" id="q_name" required />
-      </div>
-
-      <fieldset>
-        <legend>Designation</legend>
-        <div class="radio-group">
-          <label><input type="radio" name="designation" value="Officer" required /> Officer</label>
-          <label><input type="radio" name="designation" value="Staff" /> Staff</label>
+      <!-- Section 1 -->
+      <div class="section">
+        <div class="section-header" onclick="toggleSection(this)">
+          <h2>👤 Participant Details</h2>
+          <span class="arrow">▼</span>
         </div>
-      </fieldset>
+        <div class="section-content">
+          <div class="input-group">
+            <label for="q_name">Name of Participant</label>
+            <input type="text" id="q_name" required />
+          </div>
 
-      <div class="input-group">
-        <label for="q_date">Date of the Program</label>
-        <input type="date" id="q_date" required />
-      </div>
+          <fieldset>
+            <legend>Designation</legend>
+            <div class="radio-group">
+              <label><input type="radio" name="designation" value="Officer" required /> Officer</label>
+              <label><input type="radio" name="designation" value="Staff" /> Staff</label>
+            </div>
+          </fieldset>
 
-      <fieldset>
-        <legend>Attending Batch</legend>
-        <div class="radio-group">
-          <label><input type="radio" name="batch" value="Batch 1" required /> Batch 1</label>
-          <label><input type="radio" name="batch" value="Batch 2" /> Batch 2</label>
+          <div class="input-group">
+            <label for="q_date">Date of the Program</label>
+            <div class="date-wrapper">
+              <input type="date" id="q_date" required />
+              <span class="calendar-icon">📅</span>
+            </div>
+          </div>
+
+          <fieldset>
+            <legend>Attending Batch</legend>
+            <div class="radio-group">
+              <label><input type="radio" name="batch" value="Batch 1" required /> Batch 1</label>
+              <label><input type="radio" name="batch" value="Batch 2" /> Batch 2</label>
+            </div>
+          </fieldset>
         </div>
-      </fieldset>
-
-      <div class="input-group">
-        <label for="q_state">State Office</label>
-        <select id="q_state" required>
-          <option value="">--Select--</option>
-          <option>Rajasthan State Office</option>
-          <option>Tamil Nadu State Office</option>
-          <option>Gujarat State Office</option>
-          <option>West Bengal State Office</option>
-          <option>Indian Oil Assam Oil Division</option>
-          <option>Punjab Himachal State Office</option>
-          <option>Bihar State Office</option>
-          <option>Karnataka State Office</option>
-          <option>Maharashtra State Office</option>
-          <option>AFS</option>
-        </select>
       </div>
 
-      <div class="input-group hidden" id="locationContainer">
-        <label for="q_location">Location</label>
-        <select id="q_location">
-          <option value="">--Select Location--</option>
-        </select>
-      </div>
-
-      <fieldset>
-        <legend>To What Extent Were Your Objectives Met?</legend>
-        <div class="grid-group">
-          <div class="grid-item">
-            <label>Program met my expectations</label>
-            <select id="q_obj1" required>
+      <!-- Section 2 -->
+      <div class="section">
+        <div class="section-header" onclick="toggleSection(this)">
+          <h2>🏢 Office Details</h2>
+          <span class="arrow">▼</span>
+        </div>
+        <div class="section-content">
+          <div class="input-group">
+            <label for="q_state">State Office</label>
+            <select id="q_state" required>
               <option value="">--Select--</option>
-              <option>Very satisfied (5)</option>
-              <option>Satisfied (4)</option>
-              <option>Neutral (3)</option>
-              <option>dissatisfied (2)</option>
-              <option>Very dissatisfied (1)</option>
+              <option>Rajasthan State Office</option>
+              <option>Tamil Nadu State Office</option>
+              <option>Gujarat State Office</option>
+              <option>West Bengal State Office</option>
+              <option>Indian Oil Assam Oil Division</option>
+              <option>Punjab Himachal State Office</option>
+              <option>Bihar State Office</option>
+              <option>Karnataka State Office</option>
+              <option>Maharashtra State Office</option>
+              <option>AFS</option>
             </select>
           </div>
 
-          <div class="grid-item">
-            <label>Program clarified my roles</label>
-            <select id="q_obj2" required>
-              <option value="">--Select--</option>
-              <option>Very satisfied (5)</option>
-              <option>Satisfied (4)</option>
-              <option>Neutral (3)</option>
-              <option>dissatisfied (2)</option>
-              <option>Very dissatisfied (1)</option>
-            </select>
-          </div>
-
-          <div class="grid-item">
-            <label>Enhanced my knowledge</label>
-            <select id="q_obj3" required>
-              <option value="">--Select--</option>
-              <option>Very satisfied (5)</option>
-              <option>Satisfied (4)</option>
-              <option>Neutral (3)</option>
-              <option>dissatisfied (2)</option>
-              <option>Very dissatisfied (1)</option>
-            </select>
-          </div>
-
-          <div class="grid-item">
-            <label>Useful for safety culture</label>
-            <select id="q_obj4" required>
-              <option value="">--Select--</option>
-              <option>Very satisfied (5)</option>
-              <option>Satisfied (4)</option>
-              <option>Neutral (3)</option>
-              <option>dissatisfied (2)</option>
-              <option>Very dissatisfied (1)</option>
-            </select>
-          </div>
-
-          <div class="grid-item">
-            <label>Instructional Methods</label>
-            <select id="q_obj5" required>
-              <option value="">--Select--</option>
-              <option>Very satisfied (5)</option>
-              <option>Satisfied (4)</option>
-              <option>Neutral (3)</option>
-              <option>dissatisfied (2)</option>
-              <option>Very dissatisfied (1)</option>
-            </select>
-          </div>
-
-          <div class="grid-item">
-            <label>Overall Assessment</label>
-            <select id="q_obj6" required>
-              <option value="">--Select--</option>
-              <option>Very satisfied (5)</option>
-              <option>Satisfied (4)</option>
-              <option>Neutral (3)</option>
-              <option>dissatisfied (2)</option>
-              <option>Very dissatisfied (1)</option>
+          <div class="input-group hidden" id="locationContainer">
+            <label for="q_location">Location</label>
+            <select id="q_location">
+              <option value="">--Select Location--</option>
             </select>
           </div>
         </div>
-      </fieldset>
-
-      <div class="input-group">
-        <label for="q_remarks">Remarks and Suggestions</label>
-        <textarea id="q_remarks" rows="3"></textarea>
       </div>
 
-      <button type="submit" class="btn-primary">💾 Save Response</button>
+      <!-- Section 3 -->
+      <div class="section">
+        <div class="section-header" onclick="toggleSection(this)">
+          <h2>📊 Objectives & Assessment</h2>
+          <span class="arrow">▼</span>
+        </div>
+        <div class="section-content">
+          <fieldset>
+            <legend>To What Extent Were Your Objectives Met?</legend>
+            <div class="objective-list">
+              <label>Program met my expectations
+                <select id="q_obj1" required>
+                  <option value="">--Select--</option>
+                  <option>Very satisfied (5)</option>
+                  <option>Satisfied (4)</option>
+                  <option>Neutral (3)</option>
+                  <option>dissatisfied (2)</option>
+                  <option>Very dissatisfied (1)</option>
+                </select>
+              </label>
+
+              <label>Program clarified my roles
+                <select id="q_obj2" required>
+                  <option value="">--Select--</option>
+                  <option>Very satisfied (5)</option>
+                  <option>Satisfied (4)</option>
+                  <option>Neutral (3)</option>
+                  <option>dissatisfied (2)</option>
+                  <option>Very dissatisfied (1)</option>
+                </select>
+              </label>
+
+              <label>Enhanced my knowledge
+                <select id="q_obj3" required>
+                  <option value="">--Select--</option>
+                  <option>Very satisfied (5)</option>
+                  <option>Satisfied (4)</option>
+                  <option>Neutral (3)</option>
+                  <option>dissatisfied (2)</option>
+                  <option>Very dissatisfied (1)</option>
+                </select>
+              </label>
+
+              <label>Useful for safety culture
+                <select id="q_obj4" required>
+                  <option value="">--Select--</option>
+                  <option>Very satisfied (5)</option>
+                  <option>Satisfied (4)</option>
+                  <option>Neutral (3)</option>
+                  <option>dissatisfied (2)</option>
+                  <option>Very dissatisfied (1)</option>
+                </select>
+              </label>
+
+              <label>Instructional Methods
+                <select id="q_obj5" required>
+                  <option value="">--Select--</option>
+                  <option>Very satisfied (5)</option>
+                  <option>Satisfied (4)</option>
+                  <option>Neutral (3)</option>
+                  <option>dissatisfied (2)</option>
+                  <option>Very dissatisfied (1)</option>
+                </select>
+              </label>
+
+              <label>Overall Assessment
+                <select id="q_obj6" required>
+                  <option value="">--Select--</option>
+                  <option>Very satisfied (5)</option>
+                  <option>Satisfied (4)</option>
+                  <option>Neutral (3)</option>
+                  <option>dissatisfied (2)</option>
+                  <option>Very dissatisfied (1)</option>
+                </select>
+              </label>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+
+      <!-- Section 4 -->
+      <div class="section">
+        <div class="section-header" onclick="toggleSection(this)">
+          <h2>🗒️ Remarks & Submit</h2>
+          <span class="arrow">▼</span>
+        </div>
+        <div class="section-content">
+          <div class="input-group">
+            <label for="q_remarks">Remarks and Suggestions</label>
+            <textarea id="q_remarks" rows="3"></textarea>
+          </div>
+
+          <button type="submit" class="btn-primary">💾 Save Response</button>
+        </div>
+      </div>
     </form>
 
     <div class="footer">
