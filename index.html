@@ -15,6 +15,7 @@
     </div>
 
     <form id="feedbackForm" class="form">
+
       <div class="input-group">
         <label for="q_name">Name of Participant</label>
         <input type="text" id="q_name" required />
@@ -22,7 +23,7 @@
 
       <fieldset>
         <legend>Designation</legend>
-        <div class="options">
+        <div class="radio-group">
           <label><input type="radio" name="designation" value="Officer" required /> Officer</label>
           <label><input type="radio" name="designation" value="Staff" /> Staff</label>
         </div>
@@ -35,7 +36,7 @@
 
       <fieldset>
         <legend>Attending Batch</legend>
-        <div class="options">
+        <div class="radio-group">
           <label><input type="radio" name="batch" value="Batch 1" required /> Batch 1</label>
           <label><input type="radio" name="batch" value="Batch 2" /> Batch 2</label>
         </div>
@@ -66,9 +67,10 @@
       </div>
 
       <fieldset>
-        <legend>To What Extent Your Objectives Were Met?</legend>
-        <div class="options">
-          <label>Program met my expectations
+        <legend>To What Extent Were Your Objectives Met?</legend>
+        <div class="grid-group">
+          <div class="grid-item">
+            <label>Program met my expectations</label>
             <select id="q_obj1" required>
               <option value="">--Select--</option>
               <option>Very satisfied (5)</option>
@@ -77,9 +79,10 @@
               <option>dissatisfied (2)</option>
               <option>Very dissatisfied (1)</option>
             </select>
-          </label>
+          </div>
 
-          <label>Program clarified my roles
+          <div class="grid-item">
+            <label>Program clarified my roles</label>
             <select id="q_obj2" required>
               <option value="">--Select--</option>
               <option>Very satisfied (5)</option>
@@ -88,9 +91,10 @@
               <option>dissatisfied (2)</option>
               <option>Very dissatisfied (1)</option>
             </select>
-          </label>
+          </div>
 
-          <label>Enhanced my knowledge
+          <div class="grid-item">
+            <label>Enhanced my knowledge</label>
             <select id="q_obj3" required>
               <option value="">--Select--</option>
               <option>Very satisfied (5)</option>
@@ -99,9 +103,10 @@
               <option>dissatisfied (2)</option>
               <option>Very dissatisfied (1)</option>
             </select>
-          </label>
+          </div>
 
-          <label>Useful for safety culture
+          <div class="grid-item">
+            <label>Useful for safety culture</label>
             <select id="q_obj4" required>
               <option value="">--Select--</option>
               <option>Very satisfied (5)</option>
@@ -110,9 +115,10 @@
               <option>dissatisfied (2)</option>
               <option>Very dissatisfied (1)</option>
             </select>
-          </label>
+          </div>
 
-          <label>Instructional Methods
+          <div class="grid-item">
+            <label>Instructional Methods</label>
             <select id="q_obj5" required>
               <option value="">--Select--</option>
               <option>Very satisfied (5)</option>
@@ -121,9 +127,10 @@
               <option>dissatisfied (2)</option>
               <option>Very dissatisfied (1)</option>
             </select>
-          </label>
+          </div>
 
-          <label>Overall Assessment
+          <div class="grid-item">
+            <label>Overall Assessment</label>
             <select id="q_obj6" required>
               <option value="">--Select--</option>
               <option>Very satisfied (5)</option>
@@ -132,7 +139,7 @@
               <option>dissatisfied (2)</option>
               <option>Very dissatisfied (1)</option>
             </select>
-          </label>
+          </div>
         </div>
       </fieldset>
 
