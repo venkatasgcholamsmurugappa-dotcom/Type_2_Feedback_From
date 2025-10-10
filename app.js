@@ -156,3 +156,9 @@ if ('serviceWorker' in navigator) {
     });
   });
 }
+// Collapsible Sections
+function toggleSection(header) {
+  const section = header.parentElement;
+  section.classList.toggle('active');
+}
+
