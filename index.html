@@ -5,39 +5,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Competency Building Workshop for Officers & Staffs</title>
   <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="manifest" href="manifest.json" />
 </head>
 <body>
-  <div class="container">
-    <h1>Competency Building Workshop<br>for Officers & Staffs</h1>
+  <div class="app">
+    <div class="header">
+      <h1>Competency Building Workshop</h1>
+      <p>For Officers & Staffs</p>
+    </div>
 
-    <form id="feedbackForm">
-      <label class="floating">
-        <input type="text" id="q_name" placeholder=" " required />
-        <span class="label-text">Name of Participant</span>
-      </label>
+    <form id="feedbackForm" class="form">
+
+      <div class="input-group">
+        <label for="q_name">Name of Participant</label>
+        <input type="text" id="q_name" required />
+      </div>
 
       <fieldset>
         <legend>Designation</legend>
-        <label><input type="radio" name="designation" value="Officer" required /> Officer</label>
-        <label><input type="radio" name="designation" value="Staff" /> Staff</label>
+        <div class="radio-group">
+          <label><input type="radio" name="designation" value="Officer" required /> Officer</label>
+          <label><input type="radio" name="designation" value="Staff" /> Staff</label>
+        </div>
       </fieldset>
 
-      <label class="floating">
-        <input type="date" id="q_date" placeholder=" " required />
-        <span class="label-text">Date of the Program</span>
-      </label>
+      <div class="input-group">
+        <label for="q_date">Date of the Program</label>
+        <input type="date" id="q_date" required />
+      </div>
 
       <fieldset>
         <legend>Attending Batch</legend>
-        <label><input type="radio" name="batch" value="Batch 1" required /> Batch 1</label>
-        <label><input type="radio" name="batch" value="Batch 2" /> Batch 2</label>
+        <div class="radio-group">
+          <label><input type="radio" name="batch" value="Batch 1" required /> Batch 1</label>
+          <label><input type="radio" name="batch" value="Batch 2" /> Batch 2</label>
+        </div>
       </fieldset>
 
-      <label>
-        <span>State Office</span>
+      <div class="input-group">
+        <label for="q_state">State Office</label>
         <select id="q_state" required>
-          <option value="">--Select State Office--</option>
+          <option value="">--Select--</option>
           <option>Rajasthan State Office</option>
           <option>Tamil Nadu State Office</option>
           <option>Gujarat State Office</option>
@@ -49,19 +57,20 @@
           <option>Maharashtra State Office</option>
           <option>AFS</option>
         </select>
-      </label>
+      </div>
 
-      <label id="locationContainer" class="hidden">
-        <span>Location</span>
+      <div class="input-group hidden" id="locationContainer">
+        <label for="q_location">Location</label>
         <select id="q_location">
           <option value="">--Select Location--</option>
         </select>
-      </label>
+      </div>
 
       <fieldset>
-        <legend>To What Extent your Objectives/Expectations were met?</legend>
-        <div class="grid">
-          <label>Program met my expectations:
+        <legend>To What Extent Were Your Objectives Met?</legend>
+        <div class="grid-group">
+          <div class="grid-item">
+            <label>Program met my expectations</label>
             <select id="q_obj1" required>
               <option value="">--Select--</option>
               <option>Very satisfied (5)</option>
@@ -70,9 +79,10 @@
               <option>dissatisfied (2)</option>
               <option>Very dissatisfied (1)</option>
             </select>
-          </label>
+          </div>
 
-          <label>Program clarified my roles:
+          <div class="grid-item">
+            <label>Program clarified my roles</label>
             <select id="q_obj2" required>
               <option value="">--Select--</option>
               <option>Very satisfied (5)</option>
@@ -81,9 +91,10 @@
               <option>dissatisfied (2)</option>
               <option>Very dissatisfied (1)</option>
             </select>
-          </label>
+          </div>
 
-          <label>Program enhanced my knowledge:
+          <div class="grid-item">
+            <label>Enhanced my knowledge</label>
             <select id="q_obj3" required>
               <option value="">--Select--</option>
               <option>Very satisfied (5)</option>
@@ -92,9 +103,10 @@
               <option>dissatisfied (2)</option>
               <option>Very dissatisfied (1)</option>
             </select>
-          </label>
+          </div>
 
-          <label>Program useful for safety culture:
+          <div class="grid-item">
+            <label>Useful for safety culture</label>
             <select id="q_obj4" required>
               <option value="">--Select--</option>
               <option>Very satisfied (5)</option>
@@ -103,9 +115,10 @@
               <option>dissatisfied (2)</option>
               <option>Very dissatisfied (1)</option>
             </select>
-          </label>
+          </div>
 
-          <label>Instructional Methods of Faculty:
+          <div class="grid-item">
+            <label>Instructional Methods</label>
             <select id="q_obj5" required>
               <option value="">--Select--</option>
               <option>Very satisfied (5)</option>
@@ -114,9 +127,10 @@
               <option>dissatisfied (2)</option>
               <option>Very dissatisfied (1)</option>
             </select>
-          </label>
+          </div>
 
-          <label>Overall Assessment:
+          <div class="grid-item">
+            <label>Overall Assessment</label>
             <select id="q_obj6" required>
               <option value="">--Select--</option>
               <option>Very satisfied (5)</option>
@@ -125,25 +139,26 @@
               <option>dissatisfied (2)</option>
               <option>Very dissatisfied (1)</option>
             </select>
-          </label>
+          </div>
         </div>
       </fieldset>
 
-      <label class="floating">
-        <textarea id="q_remarks" placeholder=" " rows="3"></textarea>
-        <span class="label-text">Remarks and Suggestions</span>
-      </label>
-
-      <div class="actions">
-        <button type="submit" class="save-btn">💾 Save Response</button>
-        <button type="button" id="syncBtn" class="sync-btn">🔄 Sync Now</button>
+      <div class="input-group">
+        <label for="q_remarks">Remarks and Suggestions</label>
+        <textarea id="q_remarks" rows="3"></textarea>
       </div>
 
-      <p id="statusBar">Offline responses: <span id="responseCount">0</span></p>
+      <button type="submit" class="btn-primary">💾 Save Response</button>
     </form>
+
+    <div class="footer">
+      <button id="syncBtn" class="btn-sync">🔄 Sync Now</button>
+      <span id="offlineCount">Offline responses: <b>0</b></span>
+    </div>
   </div>
 
-  <iframe name="hidden_iframe" style="display:none;"></iframe>
+  <div id="popup" class="popup">Saved Offline!</div>
+
   <script src="app.js"></script>
 </body>
 </html>
