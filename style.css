@@ -1,107 +1,207 @@
-:root {
-  --bg: #f4f7fb;
-  --accent: #0078d7;
-  --text: #222;
-  --card: #fff;
-  --radius: 10px;
+/* Reset and Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", "Segoe UI", system-ui, sans-serif;
 }
 
 body {
-  font-family: 'Segoe UI', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  margin: 0;
-  padding: 0;
-}
-
-.container {
-  background: var(--card);
-  border-radius: var(--radius);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  background: linear-gradient(135deg, #f6f9fc, #e9effd);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
   padding: 2rem;
-  margin: 2rem auto;
-  max-width: 800px;
+  color: #1e1e2f;
 }
 
-h1 {
+/* Card container */
+form, .container {
+  width: 100%;
+  max-width: 750px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  padding: 2rem 2.5rem;
+  animation: fadeIn 0.6s ease;
+}
+
+h2 {
   text-align: center;
-  color: var(--accent);
   margin-bottom: 1.5rem;
+  color: #1a237e;
+  font-weight: 700;
+  letter-spacing: 0.5px;
 }
 
-label, fieldset {
+/* Input Groups */
+label {
   display: block;
-  margin-bottom: 1rem;
+  margin-bottom: 1.2rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #3949ab;
+}
+
+input[type="text"],
+input[type="date"],
+select,
+textarea {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border: 1px solid #c5cae9;
+  border-radius: 8px;
+  background: #fafbff;
+  transition: 0.3s;
+  font-size: 1rem;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #3f51b5;
+  box-shadow: 0 0 0 3px rgba(63, 81, 181, 0.15);
+  outline: none;
 }
 
 fieldset {
-  border: 1px solid #ddd;
-  border-radius: var(--radius);
-  padding: 1rem;
-}
-
-select, input, textarea {
-  width: 100%;
-  padding: 0.6rem;
-  margin-top: 0.4rem;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  font-size: 1rem;
-}
-
-button {
-  padding: 0.8rem 1.5rem;
-  font-size: 1rem;
-  border-radius: var(--radius);
   border: none;
-  cursor: pointer;
-  transition: background 0.3s ease, transform 0.2s ease;
+  margin: 1.2rem 0;
 }
 
-.save-btn {
-  background: var(--accent);
+legend {
+  font-weight: 600;
+  color: #303f9f;
+  margin-bottom: 0.8rem;
+  font-size: 1rem;
+}
+
+/* Radio and Checkbox */
+input[type="radio"] {
+  accent-color: #3f51b5;
+  margin-right: 8px;
+}
+
+/* Buttons */
+button {
+  display: inline-block;
+  width: 100%;
+  background: linear-gradient(90deg, #3f51b5, #1a237e);
   color: #fff;
-}
-
-.save-btn:hover {
-  background: #005fa3;
-  transform: translateY(-2px);
-}
-
-.sync-btn {
-  background: #28a745;
-  color: white;
-}
-
-.sync-btn:hover {
-  background: #1e7e34;
-  transform: translateY(-2px);
-}
-
-.actions {
-  text-align: center;
-  margin-top: 2rem;
-}
-
-#statusBar {
+  border: none;
+  border-radius: 8px;
+  padding: 0.9rem;
   margin-top: 1rem;
-  font-weight: bold;
-  color: #555;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-.hidden {
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(26, 35, 126, 0.3);
+}
+
+/* Sync button with secondary style */
+#syncBtn {
+  background: linear-gradient(90deg, #43a047, #2e7d32);
+  margin-top: 0.8rem;
+}
+
+/* Hidden iframe */
+iframe[name="hidden_iframe"] {
   display: none;
-  opacity: 0;
-  transition: opacity 0.3s ease;
 }
 
-.visible {
-  display: block;
-  opacity: 1;
-  transition: opacity 0.3s ease;
+/* Fade animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.grid label {
-  margin-bottom: 1rem;
-  display: block;
+/* Grid table */
+table.grid {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+table.grid th, table.grid td {
+  border: 1px solid #c5cae9;
+  padding: 0.6rem;
+  text-align: center;
+}
+
+table.grid th {
+  background: #e8eaf6;
+  font-weight: 600;
+}
+
+/* Floating info bar for offline data count */
+#offlineStatus {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  background: #3f51b5;
+  color: white;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 12px rgba(63,81,181,0.4);
+  transition: opacity 0.3s ease;
+  opacity: 0.95;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  body {
+    padding: 1rem;
+  }
+
+  form, .container {
+    padding: 1.5rem;
+  }
+
+  button {
+    font-size: 0.95rem;
+    padding: 0.8rem;
+  }
+}
+
+/* Optional Dark Mode (auto) */
+@media (prefers-color-scheme: dark) {
+  body {
+    background: linear-gradient(135deg, #1e1e2f, #121212);
+    color: #f5f5f5;
+  }
+
+  form {
+    background: #2a2a3a;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+  }
+
+  input, select, textarea {
+    background: #343446;
+    border-color: #555;
+    color: #fff;
+  }
+
+  legend, label {
+    color: #90caf9;
+  }
+
+  button {
+    background: linear-gradient(90deg, #5c6bc0, #3949ab);
+  }
+
+  #syncBtn {
+    background: linear-gradient(90deg, #66bb6a, #388e3c);
+  }
+
+  #offlineStatus {
+    background: #3949ab;
+  }
 }
